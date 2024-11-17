@@ -2,12 +2,12 @@ from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, Page
 
 c = cu
 doc = """
-    GetID page where participants acknowledge they need a code to receive a payout and view their ID and total payoff.
+    Payout page where participants acknowledge they need a code to receive a payout and view their ID and total payoff.
 """
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'getID'
+    NAME_IN_URL = 'Payout'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
 
@@ -33,7 +33,7 @@ class Player(BasePlayer):
     )
 
 
-class GetID(Page):
+class Payout(Page):
     form_model = 'player'
     form_fields = ['acknowledgment']
 
@@ -55,4 +55,4 @@ class End(Page):
     form_model = 'player'
 
 
-page_sequence = [GetID, End]
+page_sequence = [Payout, End]

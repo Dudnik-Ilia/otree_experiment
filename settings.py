@@ -18,7 +18,7 @@ SESSION_CONFIGS =   [
             'BeliefsSignals', 
             'Questionnaire'
             'Dropout', 
-            'getID'
+            'Payout'
         ]
     },
     {
