@@ -1,0 +1,30 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Relevance Assessment {{ endblock }}
+
+{{ block content }}
+
+<p>
+    On a scale from 1 (very low) to 7 (very high), how relevant do you consider your performance on today’s IQ test to be for your success in the following areas?
+</p>
+
+<p>
+    <strong>Study</strong>:<br>
+    1&ensp;&ensp;{{ form.relevanceStudium }}&ensp;7
+</p>
+
+<p>
+    <strong>Career</strong>:<br>
+    1&ensp;&ensp;{{ form.relevanceBeruf }}&ensp;7
+</p>
+
+<p>
+    Rate on a scale from 1 (not at all) to 7 (very much) how strongly you tried to achieve the best possible result on the IQ test.
+</p>
+
+<p>
+    1&ensp;&ensp;{{ form.relevanceAngestrengt }}&ensp;7
+</p>
+
+<div align="right"> {% next_button %} </div>
+
+{{ endblock }}

@@ -1,0 +1,6 @@
+/.vscode
+/db.sqlite3
+/pdf
+/snapshots
+/yaml_backup.gz
+/__pycache__

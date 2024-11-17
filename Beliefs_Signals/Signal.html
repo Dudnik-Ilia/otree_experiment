@@ -1,0 +1,16 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Performance Feedback {{ endblock }}
+
+{{ block content }}
+
+<center>
+    <p>
+        {% if signal == "Your performance was not in the top 50%" %}
+            <img src="{% static "Signals/Signal_Pos.PNG" %}" alt="Positive Signal" /> 
+        {% else %}
+            <img src="{% static "Signals/Signal_Neg.PNG" %}" alt="Negative Signal" /> 
+        {% endif %}
+    </p>
+</center>
+
+{{ endblock }}

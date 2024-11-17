@@ -1,0 +1,19 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Quiz on IQ Test Article {{ endblock }}
+
+{{ block content }}
+
+<p>
+    The following question pertains to the article on the importance of IQ tests that you read during this experiment. 
+    If you answer the question correctly, you will receive an additional payout of 2 Euros.
+</p>
+
+{% if treatment == 1 %}
+    {% formfield player.ArticleQuestionPro %}
+{% else %}
+    {% formfield player.ArticleQuestionCont %}
+{% endif %}
+
+{% next_button %}
+
+{{ endblock }}

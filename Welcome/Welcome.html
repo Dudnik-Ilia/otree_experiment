@@ -1,0 +1,38 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Welcome!{{ endblock }}
+
+{{ block content }}
+
+<p>
+    We warmly welcome you to this experiment. Please read the instructions carefully. 
+    In this experiment, you will be paid based on your decisions and the decisions of other participants. 
+    Additionally, you will receive a fixed payout of {{ player.session.config.participation_fee }} Euros for participating.
+</p>
+
+<p>
+    The payout is anonymous, and you will not receive any information about the payouts of other participants. 
+    At the end of the online experiment, you will be informed about your compensation, 
+    and you will receive the amount via PayPal after providing your payment details.
+</p>
+
+<p>
+    Please participate in a quiet, undisturbed environment with minimal external influences and distractions.
+</p>
+
+<!-- Initially hidden Next button -->
+<button class="btn btn-primary" style="display: none" id="next-button">Next</button>
+
+<script>
+    // Set a timeout to show the Next button after 10 seconds
+    setTimeout(function() {
+        document.getElementById('next-button').style.display = 'block'; // Show the button
+    }, 10 * 1000); // 10 seconds delay
+
+    document.getElementById('next-button').onclick = function() {
+        document.querySelector('form').submit(); // Submit the form when the button is clicked
+    };
+
+
+</script>
+
+{{ endblock }}

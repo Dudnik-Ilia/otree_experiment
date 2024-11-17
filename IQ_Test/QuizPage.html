@@ -1,0 +1,53 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Quiz Question{{ endblock }}
+
+{{ block content }}
+
+<!DOCTYPE html>
+<style>
+    .column {
+        width: 50%;
+    }
+    .column1 {
+        width: 50%;
+        text-align: center;
+    }
+    .otree-timer1 {
+        height: 50px;
+    }
+    .wrapper {
+        vertical-align: middle;
+        height: 463px;
+        display: table-cell;
+    }
+    .form-group {
+        display: inline-block;
+    }
+    .otree-timer {
+        display: none;
+    }
+</style>
+
+<div class="row">
+    <div class="column1">
+        <strong>{{ title }}</strong>  <!-- Dynamic title -->
+        <br><br><br>
+        <img src="{% static image %}" style="width:333px;height:563px;"/>  <!-- Dynamic image -->
+    </div>
+    <div class="column">
+        <div class="otree-timer1 alert alert-warning">
+            <p>Remaining time for this page.
+                <span style="font-weight: bold">
+                    <span class="otree-timer__time-left"></span>
+                </span>
+            </p>
+        </div>
+        
+        <div class="wrapper">
+            {% formfields %}
+            {% next_button %}
+        </div>
+    </div>
+</div>
+
+{{ endblock }}

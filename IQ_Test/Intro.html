@@ -1,0 +1,26 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} {{ endblock }}
+
+{{ block content }}
+
+<p>
+    In the first part of the experiment, we ask you to complete a quiz with 15 questions. 
+    You will see a pattern with a missing section, and your task is to choose the correct piece 
+    from four options and then press the "Next" button.
+</p>
+
+<p>
+    You have 30 seconds for each pattern to select the correct answer and click the "Next" button. 
+    For each correct answer in the quiz, you will earn a point. Each point is associated with 
+    an additional payout. The payout per point is randomly determined by the computer for each 
+    question and varies between 10 cents and 50 cents per point.
+</p>
+
+<p>
+    On the next page, you will have the opportunity to answer a sample question to familiarize 
+    yourself with the quiz format!
+</p>
+
+{% next_button %}
+
+{{ endblock }}

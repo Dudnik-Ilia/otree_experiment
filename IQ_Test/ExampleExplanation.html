@@ -1,0 +1,60 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} {{ endblock }}
+
+{{ block content }}
+
+<!DOCTYPE html>
+<style>
+	.column {
+		width: 50%;    
+	}
+    .column1 {
+		width: 50%;
+        text-align: center;
+    }
+    .otree-timer1{
+    		height:50px; /* set height for otree timer*/
+    }
+    
+	.wrapper{
+		vertical-align: middle;
+		height:463px; /* this is the height of the image minus (otree timer heigth) * 2*/
+		display: table-cell; 
+	}
+	.form-group{
+		display: inline-block;  
+	}
+	
+	.otree-timer {
+		display: none;
+	}
+</style>
+
+<div class="row">
+	<div class="column1">
+        <strong>Testmuster</strong>
+        <br>
+        <br>
+        <br>
+		<img src="{% static "IQ_Test/Quiz_4_4_16.PNG" %}" style="width:333px;height:563px;"/> 
+	</div>
+    
+    
+    
+    <div class="column"> 
+	    <div class="wrapper">  
+
+			
+            
+			{% formfields %}
+<p>Die richtige Antwort der Testfrage ist <strong>Antwort A</strong>.</p>
+          
+<p>Ihre Aufgabe ist es dem Muster einen passenden Ausschnitt aus den vier Antwortmöglichkeiten darunter zuzuordnen. Dazu haben Sie jeweils 30 Sekunden Zeit. <strong>Bitte beachten Sie, dass Sie den Punkt für eine richtige Antwort nur erhalten, wenn Sie nach der Auswahl der korrekten Antwort den Weiter Button betätigen.</strong></p>
+
+<p>Wenn Sie die Aufgabe verstanden haben, können Sie nun mit dem tatsächlichen Quiz beginnen.</p>
+			{% next_button %}
+		</div>
+	</div>
+</div>
+
+{{ endblock }}

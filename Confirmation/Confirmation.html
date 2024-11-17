@@ -1,0 +1,15 @@
+{{ extends 'global/Page.html' }}
+{{ block title }}Confirmation of Participation{{ endblock }}
+
+{{ block content }}
+
+<p>
+    Please confirm within 60 seconds that you would like to participate in the experiment by clicking 
+    "Yes, I would like to participate in the experiment" and then "Next."
+</p>
+
+{% formfields %}
+
+{% next_button %}
+
+{{ endblock }}

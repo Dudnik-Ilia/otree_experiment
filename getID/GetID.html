@@ -1,0 +1,24 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} {{ endblock }}
+
+{{ block content }}
+
+<p>You have now reached the end of the experiment.</p>
+
+<p>To collect your payout, please write down your code and the total compensation.</p>
+
+<p>Your code is: {{ID}}</p>
+
+<p>Your total compensation in the experiment is: {{payoff}} Euros</p>
+
+<p>Please confirm that you have read the following information about the code.</p>
+
+{% formfields %}
+
+<p>Thank you for your participation!</p>
+
+<p><strong>Once you have noted down the code, you can end the experiment by pressing the "Next" button.</strong></p>
+
+{% next_button %}
+
+{{ endblock }}

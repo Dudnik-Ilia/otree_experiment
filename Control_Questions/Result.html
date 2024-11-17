@@ -1,0 +1,19 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} {{ endblock }}
+
+{{ block content }}
+
+{% if quiz_correct %}
+    <p>
+        You have answered all control questions correctly and can now begin the experiment.
+    </p>
+{% else %}
+    <p>
+        You answered the following questions incorrectly: {{ wrong_questions }}. Please try again.
+    </p>
+{% endif %}
+
+
+{% next_button %}
+
+{{ endblock }}
