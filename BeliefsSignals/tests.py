@@ -1,4 +1,4 @@
-import Beliefs_Signals as pages
+import BeliefsSignals as pages
 from . import *
 c = cu
 

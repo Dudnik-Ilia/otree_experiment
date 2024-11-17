@@ -13,26 +13,26 @@ SESSION_CONFIGS =   [
         'num_demo_participants': 1,
         'app_sequence': [
             'Welcome', 
-            'Control_Questions',
-            'IQ_Test', 
-            'Beliefs_Signals', 
+            'ControlQuestions',
+            'InitialTest', 
+            'BeliefsSignals', 
             'Questionnaire'
             'Dropout', 
             'getID'
         ]
     },
     {
-        'name': 'IQ_Test',
+        'name': 'InitialTest',
         'num_demo_participants': 1,
         'app_sequence': [
-            'IQ_Test', 'Dropout'
+            'InitialTest', 'Dropout'
         ]
     },
     {
         'name': 'Belief',
         'num_demo_participants': 1,
         'app_sequence': [
-            'Beliefs_Signals', 'Questionnaire', 'Dropout'
+            'BeliefsSignals', 'Questionnaire', 'Dropout'
         ]
     }
 ]
