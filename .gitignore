@@ -4,3 +4,4 @@
 /snapshots
 /yaml_backup.gz
 /__pycache__
+**/__pycache__/
