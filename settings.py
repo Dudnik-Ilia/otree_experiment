@@ -9,17 +9,16 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS =   [
     {
-        'name': 'Motivated_Belief_Updating',
+        'name': 'Main',
         'num_demo_participants': 1,
         'app_sequence': [
-            # 'Confirmation', 
-            # 'Welcome', 
+            'Welcome', 
             'Control_Questions',
-            # 'IQ_Test', 
-            # 'Beliefs_Signals', 
-            # 'Questionnaire'
+            'IQ_Test', 
+            'Beliefs_Signals', 
+            'Questionnaire'
             'Dropout', 
-            # 'getID'
+            'getID'
         ]
     },
     {
