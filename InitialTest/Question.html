@@ -2,22 +2,59 @@
 
 {{ block content }}  <!-- Begin content block -->
 <!-- Page Content Starts Here -->
+<style>
+    /* Table Styling */
+    .sample-table {
+        width: 70%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
+
+    .sample-table th, .sample-table td {
+        border: 2px solid #ddd;
+        padding: 12px; /* Increased padding for spacing */
+    }
+
+    .sample-table th {
+        background-color: #f2f2f2; /* Light gray background for headers */
+        text-align: left;
+        font-size: 20px;
+    }
+
+    .sample-table td {
+        text-align: left; /* Left-align text for better readability */
+        font-size: 16px;
+        vertical-align: top; /* Align text to the top for multi-line values */
+    }
+
+    /* Section Header Styling */
+    .sample-section-header {
+        text-align: left;
+        font-weight: bold;
+        font-size: 16px;
+        background-color: #e6f7ff; /* Light blue background */
+        padding: 10px;
+        border-top: 2px solid #007bff; /* Add a top border for separation */
+        border-bottom: 2px solid #007bff; /* Add a bottom border */
+        color: #007bff; /* Blue text */
+    }
+
+    /* Table Container */
+    .table-container {
+        margin: 30px auto;
+    }
+</style>
+
 <div class="row">
     <div class="column1">
         <strong>{{ title }}</strong>  <!-- Dynamic title -->
-        <br><br><br>
-        
-        <!-- Dynamic table for sample_dict grouped by categories -->
-        <table class="sample-table">
-            <thead>
-                <tr>
-                    <th>Feature</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Personal Info -->
-                <tr><th colspan="2">Personal Info</th></tr>
+        <br>
+        <div class="table-container">
+            <!-- Dynamic table for sample_dict grouped by categories -->
+            <table class="sample-table">
+                <!-- Personal Info Section -->
+                <tr class="sample-section-header"><td colspan="2">Personal Info</td></tr>
                 {% for key, value in sample_dict.items %}
                 {% if key in ['Personal status and sex', 'Age (in years)'] %}
                 <tr>
@@ -27,8 +64,8 @@
                 {% endif %}
                 {% endfor %}
 
-                <!-- Financial Security -->
-                <tr><th colspan="2">Financial Security</th></tr>
+                <!-- Financial Security Section -->
+                <tr class="sample-section-header"><td colspan="2">Financial Security</td></tr>
                 {% for key, value in sample_dict.items %}
                 {% if key in ['Housing status', 'Bank account status', 'Savings account status'] %}
                 <tr>
@@ -38,8 +75,8 @@
                 {% endif %}
                 {% endfor %}
 
-                <!-- Credit History -->
-                <tr><th colspan="2">Credit History</th></tr>
+                <!-- Credit History Section -->
+                <tr class="sample-section-header"><td colspan="2">Credit History</td></tr>
                 {% for key, value in sample_dict.items %}
                 {% if key in ['Credit history', 'Other credits'] %}
                 <tr>
@@ -49,8 +86,8 @@
                 {% endif %}
                 {% endfor %}
 
-                <!-- Loan Details -->
-                <tr><th colspan="2">Loan Details</th></tr>
+                <!-- Loan Details Section -->
+                <tr class="sample-section-header"><td colspan="2">Loan Details</td></tr>
                 {% for key, value in sample_dict.items %}
                 {% if key in ['Installment rate: % of income used for loan payments', 'Credit amount (applicant has requested)', 'Loan duration (months)'] %}
                 <tr>
@@ -59,19 +96,11 @@
                 </tr>
                 {% endif %}
                 {% endfor %}
-            </tbody>
-        </table>
+            </table>
+        </div>
     </div>
     
     <div class="column">
-        <div class="otree-timer1 alert alert-warning">
-            <p>Remaining time for this page.
-                <span style="font-weight: bold">
-                    <span class="otree-timer__time-left"></span>
-                </span>
-            </p>
-        </div>
-        
         <div class="wrapper">
             {% formfields %}
             {% next_button %}

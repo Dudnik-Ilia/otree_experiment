@@ -74,7 +74,7 @@ class Intro(Page):
 class ExampleQuestion(Page):
     form_model = 'player'
     form_fields = ['example_question']
-    timeout_seconds = 30
+    timeout_seconds = 120
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         # Make correct choice for future explanation
@@ -105,7 +105,7 @@ class ConfirmActive(Page):
 # Quiz Page for all quizes
 class Question(Page):
     form_model = 'player'
-    timeout_seconds = 45
+    timeout_seconds = 60
     
     @property
     def form_fields(self):
