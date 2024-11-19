@@ -1,5 +1,5 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
-from settings import NUMBER_OF_QUESTIONS
+from settings import NUMBER_OF_QUESTIONS, SAMPLES_INITIAL_TEST
 import random
 
 c = cu
@@ -81,7 +81,7 @@ class ConfirmActive(Page):
 # Quiz Page for all quizes
 class Question(Page):
     form_model = 'player'
-    timeout_seconds = 30
+    timeout_seconds = 45
     
     @property
     def form_fields(self):
@@ -95,14 +95,16 @@ class Question(Page):
         return {
             'question_num': question_num,
             'title': f"Question {question_num}/{NUMBER_OF_QUESTIONS}",
-            'image': f"IQ_Test/Quiz_4_4_{question_num}.PNG"
+            'sample_dict': SAMPLES_INITIAL_TEST.iloc[question_num-1].to_dict()
         }
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         # Access the current quiz field dynamically
-        quiz_num = player.current_question
-        if getattr(player, 'Quiz'+str(quiz_num)) == 'True':
+        question_num = player.current_question
+        user_answer = getattr(player, 'Question'+str(question_num))
+        real_answer = SAMPLES_INITIAL_TEST['class'].iloc[question_num-1]
+        if (user_answer == "Approve" and real_answer == 1) or (user_answer == "Decline" and real_answer == 0):
             player.participant.payoff += player.random_number()
             player.correct_answers += 1
         # Increase question number

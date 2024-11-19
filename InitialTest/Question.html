@@ -1,39 +1,64 @@
-{{ extends 'global/Page.html' }}
-{{ block title }}Question {{ question_num }} {{ endblock }}
-
-{{ block content }}
-
-<!DOCTYPE html>
-<style>
-    .column {
-        width: 50%;
-    }
-    .column1 {
-        width: 50%;
-        text-align: center;
-    }
-    .otree-timer1 {
-        height: 50px;
-    }
-    .wrapper {
-        vertical-align: middle;
-        height: 463px;
-        display: table-cell;
-    }
-    .form-group {
-        display: inline-block;
-    }
-    .otree-timer {
-        display: none;
-    }
-</style>
-
 <div class="row">
     <div class="column1">
         <strong>{{ title }}</strong>  <!-- Dynamic title -->
         <br><br><br>
-        <img src="{% static image %}" style="width:333px;height:563px;"/>  <!-- Dynamic image -->
+        
+        <!-- Dynamic table for sample_dict grouped by categories -->
+        <table class="sample-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Personal Info -->
+                <tr><th colspan="2">Personal Info</th></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Personal status and sex', 'Age (in years)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Financial Security -->
+                <tr><th colspan="2">Financial Security</th></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Housing status', 'Bank account status', 'Savings account status'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Credit History -->
+                <tr><th colspan="2">Credit History</th></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Credit history', 'Other credits'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Loan Details -->
+                <tr><th colspan="2">Loan Details</th></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Installment rate: % of income used for loan payments', 'Credit amount (applicant has requested)', 'Loan duration (months)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    
     <div class="column">
         <div class="otree-timer1 alert alert-warning">
             <p>Remaining time for this page.
@@ -49,5 +74,3 @@
         </div>
     </div>
 </div>
-
-{{ endblock }}

@@ -1,6 +1,9 @@
 import itertools
+import pandas as pd
 
 TREATMENT_CYCLE = itertools.cycle([1, 0])
+SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')
+
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.01,
