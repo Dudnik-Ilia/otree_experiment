@@ -52,11 +52,12 @@ SECRET_KEY = 'secret_key'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
-
-# IQ_Test
-NUMBER_OF_QUIZES = 15
+# ================================
+# InitialTest
+NUMBER_OF_QUESTIONS = 15
+# ControlQuestions
 NUMBER_OF_CONTROL_QUESTIONS = 3
 NUM_ROUNDS_CONTROL_QUESTIONS = 3
-
+# BeliefsSignals
 NUMBER_OF_BELIEFS = 3
 NUMBER_OF_SIGNALS=2

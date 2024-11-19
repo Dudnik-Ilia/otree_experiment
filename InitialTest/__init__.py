@@ -1,5 +1,5 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
-from settings import NUMBER_OF_QUIZES
+from settings import NUMBER_OF_QUESTIONS
 import random
 
 c = cu
@@ -7,18 +7,14 @@ doc = ''
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'IQ_Test'
+    NAME_IN_URL = 'Initial Test'
     PLAYERS_PER_GROUP=None
     NUM_ROUNDS = 1
-    ADMIN_REPORT_TEMPLATE = 'IQ_Test/admin_report.html'
+    ADMIN_REPORT_TEMPLATE = 'InitialTest/admin_report.html'
 
 
 class Subsession(BaseSubsession):
-    total_answers = models.FloatField()
-    odd_players = models.IntegerField(initial=0)
-    a = models.IntegerField(initial=0)
-    b = models.IntegerField()
-
+	pass
 
 class Group(BaseGroup):
     pass
@@ -26,60 +22,19 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
-    correct_answers = models.FloatField(initial=0)
-    attempts = models.IntegerField(initial=1)
+    correct_answers = models.IntegerField(initial=0)
     current_question = models.IntegerField(initial=1)
-    odd = models.IntegerField(initial=0)
 
     # INPUT FIELDS
-    example_question = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
+    example_question = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
+                                label='Should we approve this loan request?',
                                   widget=widgets.RadioSelect)
-    Quiz1 = models.StringField(choices=[['A', 'A'], ['True', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
+    Question1 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
+                                label='Should we approve this loan request?',
                                   widget=widgets.RadioSelect)
-    Quiz2 = models.StringField(choices=[['A', 'A'], ['True', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
+    Question2 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
+                                label='Should we approve this loan request?',
                                   widget=widgets.RadioSelect)
-    Quiz3 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['True', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz4 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['True', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz5 = models.StringField(choices=[['True', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz6 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['True', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz7 = models.StringField(choices=[['A', 'A'], ['True', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz8 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['True', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz9 = models.StringField(choices=[['True', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D']],
-                                label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                  widget=widgets.RadioSelect)
-    Quiz10 = models.StringField(choices=[['A', 'A'], ['True', 'B'], ['C', 'C'], ['D', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
-    Quiz11 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['True', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
-    Quiz12 = models.StringField(choices=[['True', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
-    Quiz13 = models.StringField(choices=[['True', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
-    Quiz14 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['True', 'C'], ['D', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
-    Quiz15 = models.StringField(choices=[['A', 'A'], ['B', 'B'], ['C', 'C'], ['True', 'D']],
-                                 label='Welcher Ausschnitt ist die richtige Ergänzung?',
-                                   widget=widgets.RadioSelect)
     still_active = models.BooleanField(blank=True, choices=[[True, 'Yes'], [False, 'No']], initial=False,
                                        label='Please click "Yes" and "Continue" within 60 seconds if you continue to actively participate in the experiment', widget=widgets.RadioSelect)
 
@@ -98,7 +53,8 @@ class ExampleQuestion(Page):
     timeout_seconds = 30
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.example_question="A"
+        # Make correct choice for future explanation
+        player.example_question="Approve"
 
 
 class ExampleExplanation(Page):
@@ -106,7 +62,7 @@ class ExampleExplanation(Page):
     form_fields = ['example_question']
 
 
-class QuizStart(Page):
+class TestStart(Page):
     form_model = 'player'
 
 
@@ -123,22 +79,23 @@ class ConfirmActive(Page):
 
 
 # Quiz Page for all quizes
-class QuizPage(Page):
+class Question(Page):
     form_model = 'player'
     timeout_seconds = 30
     
     @property
     def form_fields(self):
         # Use player's current question to set form_fields dynamically
-        return [f"Quiz{self.player.current_question}"]
+        return [f"Question{self.player.current_question}"]
 
     @staticmethod
     def vars_for_template(player):
         # Get the current quiz field from the generator
-        quiz_num = player.current_question
+        question_num = player.current_question
         return {
-            'title': f"Question {quiz_num}/{NUMBER_OF_QUIZES}",
-            'image': f"IQ_Test/Quiz_4_4_{quiz_num}.PNG"
+            'question_num': question_num,
+            'title': f"Question {question_num}/{NUMBER_OF_QUESTIONS}",
+            'image': f"IQ_Test/Quiz_4_4_{question_num}.PNG"
         }
 
     @staticmethod
@@ -152,13 +109,13 @@ class QuizPage(Page):
         player.current_question += 1
     
 
-quiz_pages = [QuizPage for _ in range(NUMBER_OF_QUIZES)]
+quiz_pages = [Question for _ in range(NUMBER_OF_QUESTIONS)]
 
 page_sequence = [
     Intro, 
     ExampleQuestion, 
     ExampleExplanation,
-    QuizStart,
+    TestStart,
     *quiz_pages,
     ConfirmActive,
 ]
