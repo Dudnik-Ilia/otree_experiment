@@ -1,6 +1,4 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
-import string
-import secrets
 
 c = cu
 doc = """
@@ -24,7 +22,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    id = models.StringField()
 
     confirm = models.StringField(
         choices=[['Yes', 'Yes, I would like to participate in the experiment']],
@@ -33,13 +30,9 @@ class Player(BasePlayer):
     )
     has_confirmed = models.BooleanField()
 
-    # Method to generate a unique ID for the player
-    def create_id(self):
-        length = 8  # Desired length of the ID
-        characters = string.ascii_letters + string.digits  # Including letters and digits
-        unique_id = ''.join(secrets.choice(characters) for _ in range(length))
-        self.participant.vars["id"] = unique_id
-        self.id = self.participant.vars["id"]
+    # Method to save a unique ID for the player
+    def save_id(self):
+        self.participant.vars["id"] = self.id
 
 
 class Confirmation(Page):
@@ -70,7 +63,7 @@ class Welcome(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.create_id()
+        player.save_id()
 
 
 class Introduction(Page):
