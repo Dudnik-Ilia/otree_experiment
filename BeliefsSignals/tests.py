@@ -1,6 +1,6 @@
 import BeliefsSignals as pages
-from . import *
-c = cu
+from otree.api import Bot
+
 
 class PlayerBot(Bot):
     def play_round(self):

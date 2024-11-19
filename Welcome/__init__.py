@@ -73,5 +73,8 @@ class Welcome(Page):
         player.create_id()
 
 
+class Introduction(Page):
+    form_model = 'player'
 
-page_sequence = [Confirmation, Welcome]
+
+page_sequence = [Confirmation, Welcome, Introduction]
