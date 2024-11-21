@@ -1,60 +1,116 @@
 {{ extends 'global/Page.html' }}
-{{ block title }} {{ endblock }}
 
-{{ block content }}
-
-<!DOCTYPE html>
+{{ block content }}  <!-- Begin content block -->
+<!-- Page Content Starts Here -->
 <style>
-	.column {
-		width: 50%;    
-	}
-    .column1 {
-		width: 50%;
-        text-align: center;
+    /* Table Styling */
+    .sample-table {
+        width: 70%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
     }
-    .otree-timer1{
-    		height:50px; /* set height for otree timer*/
+
+    .sample-table th, .sample-table td {
+        border: 2px solid #ddd;
+        padding: 12px; /* Increased padding for spacing */
     }
-    
-	.wrapper{
-		vertical-align: middle;
-		height:463px; /* this is the height of the image minus (otree timer heigth) * 2*/
-		display: table-cell; 
-	}
-	.form-group{
-		display: inline-block;  
-	}
-	
-	.otree-timer {
-		display: none;
-	}
+
+    .sample-table th {
+        background-color: #f2f2f2; /* Light gray background for headers */
+        text-align: left;
+        font-size: 20px;
+    }
+
+    .sample-table td {
+        text-align: left; /* Left-align text for better readability */
+        font-size: 16px;
+        vertical-align: top; /* Align text to the top for multi-line values */
+    }
+
+    /* Section Header Styling */
+    .sample-section-header {
+        text-align: left;
+        font-weight: bold;
+        font-size: 16px;
+        background-color: #e6f7ff; /* Light blue background */
+        padding: 10px;
+        border-top: 2px solid #007bff; /* Add a top border for separation */
+        border-bottom: 2px solid #007bff; /* Add a bottom border */
+        color: #007bff; /* Blue text */
+    }
+
+    /* Table Container */
+    .table-container {
+        margin: 30px auto;
+    }
 </style>
 
 <div class="row">
-	<div class="column1">
-        <strong>Testmuster</strong>
+    <div class="column1">
+        <strong>{{ title }}</strong>  <!-- Dynamic title -->
         <br>
-        <br>
-        <br>
-		<img src="{% static "IQ_Test/Quiz_4_4_16.PNG" %}" style="width:333px;height:563px;"/> 
-	</div>
-    
-    
-    
-    <div class="column"> 
-	    <div class="wrapper">  
+        <div class="table-container">
+            <!-- Dynamic table for sample_dict grouped by categories -->
+            <table class="sample-table">
+                <!-- Personal Info Section -->
+                <tr class="sample-section-header"><td colspan="2">Personal Info</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Personal status and sex', 'Age (in years)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
 
-			
-            
-			{% formfields %}
-<p>Die richtige Antwort der Testfrage ist <strong>Antwort A</strong>.</p>
-          
-<p>Ihre Aufgabe ist es dem Muster einen passenden Ausschnitt aus den vier Antwortmöglichkeiten darunter zuzuordnen. Dazu haben Sie jeweils 30 Sekunden Zeit. <strong>Bitte beachten Sie, dass Sie den Punkt für eine richtige Antwort nur erhalten, wenn Sie nach der Auswahl der korrekten Antwort den Weiter Button betätigen.</strong></p>
+                <!-- Financial Security Section -->
+                <tr class="sample-section-header"><td colspan="2">Financial Security</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Housing status', 'Bank account status', 'Savings account status'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
 
-<p>Wenn Sie die Aufgabe verstanden haben, können Sie nun mit dem tatsächlichen Quiz beginnen.</p>
-			{% next_button %}
-		</div>
-	</div>
+                <!-- Credit History Section -->
+                <tr class="sample-section-header"><td colspan="2">Credit History</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Credit history', 'Other credits'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Loan Details Section -->
+                <tr class="sample-section-header"><td colspan="2">Loan Details</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Installment rate: % of income used for loan payments', 'Credit amount (applicant has requested)', 'Loan duration (months)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    <div class="column">
+        <div class="wrapper">
+			<p>The correct answer to the Example Question is <strong>Approve</strong>.</p>
+			<p>Your task is to correctly classify whether bank should approve a loan or not.</p>
+			<p>In this Example Question we recommend approving this loan:</p>
+			<p>The applicant shows financial stability, with a solid housing situation and a 
+				reasonable credit history. Their loan request is modest, and they have sufficient 
+				savings to support repayment.</p>
+            {% next_button %}
+        </div>
+    </div>
 </div>
 
 {{ endblock }}
