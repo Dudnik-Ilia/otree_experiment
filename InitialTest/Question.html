@@ -40,6 +40,18 @@
         color: #007bff; /* Blue text */
     }
 
+    .ai-decision-text {
+        font-size: 16px;
+        color: #0056b3; /* Deep blue for emphasis */
+        background-color: #f0f8ff; /* Light blue background for contrast */
+        border-left: 4px solid #0056b3; /* Blue accent line on the left */
+        padding: 10px;
+        margin-top: 20px;
+        font-family: Arial, sans-serif; /* Modern font */
+        border-radius: 4px; /* Rounded edges for a polished look */
+    }
+
+
     /* Table Container */
     .table-container {
         margin: 30px auto;
@@ -102,6 +114,9 @@
     
     <div class="column">
         <div class="wrapper">
+            <br>
+            <p class="ai-decision-text">Our AI thinks we need to: <strong>{{ ai_decision }}</strong></p>
+            <br>
             {% formfields %}
             {% next_button %}
         </div>

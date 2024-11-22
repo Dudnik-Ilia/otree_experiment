@@ -54,6 +54,8 @@ SECRET_KEY = 'secret_key'
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
 # ================================
+# Model accuracy
+AI_ACCURACY = 0.5
 # InitialTest
 NUMBER_OF_QUESTIONS_INITIAL_TEST = 10
 SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')

@@ -1,5 +1,5 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
-from settings import NUMBER_OF_QUESTIONS_INITIAL_TEST, SAMPLES_INITIAL_TEST
+from settings import NUMBER_OF_QUESTIONS_INITIAL_TEST, SAMPLES_INITIAL_TEST, AI_ACCURACY
 import random
 
 c = cu
@@ -122,9 +122,16 @@ class Question(Page):
     def vars_for_template(player):
         # Get the current quiz field from the generator
         question_num = player.current_question
+        ai_decision = SAMPLES_INITIAL_TEST['class'].iloc[question_num-1]
+        ai_decision = "Approve" if ai_decision == 1 else "Decline"
+        if random.random() > AI_ACCURACY:
+            # Make incorrect prediction
+            ai_decision = "Decline" if ai_decision == "Approve" else "Approve"
         return {
             'title': f"Question {question_num}/{NUMBER_OF_QUESTIONS_INITIAL_TEST}",
-            'sample_dict': SAMPLES_INITIAL_TEST.iloc[question_num-1].to_dict()
+            'sample_dict': SAMPLES_INITIAL_TEST.iloc[question_num-1].to_dict(),
+            'ai_decision': ai_decision,
+            'real_decision': SAMPLES_INITIAL_TEST['class'].iloc[question_num-1] # For debugging
         }
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
