@@ -1,0 +1,24 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Messenger Notification {{ endblock }}
+
+{{ block content }}
+
+<p>
+    A messenger will now deliver the <strong>second message</strong> about your performance relative to AI. 
+    The computer has randomly selected one of the three messengers for this task.
+</p>
+
+<br>
+<center>
+    <p><img src="{% static "Signals/Signal.PNG" %}" style="width:800px;height:525px;" alt="Messenger Information" /></p>
+</center>
+<br>
+
+<p>
+    <strong>Note:</strong> in this experiment, however, you will not know which messenger delivered the message. 
+    This means you will never know for certain whether you actually outperformed AI or not.
+</p>
+
+{% next_button %}
+
+{{ endblock }}

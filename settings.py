@@ -16,7 +16,7 @@ SESSION_CONFIGS =   [
             'Welcome', 
             'ControlQuestions',
             'InitialTest', 
-            'BeliefsSignals', 
+            'MainTest', 
             'Questionnaire',
             'Dropout', 
             'Payout',
@@ -33,7 +33,7 @@ SESSION_CONFIGS =   [
         'name': 'Belief',
         'num_demo_participants': 1,
         'app_sequence': [
-            'BeliefsSignals', 'Questionnaire', 'Dropout'
+            'MainTest', 'Questionnaire', 'Dropout'
         ]
     }
 ]
@@ -56,6 +56,8 @@ INSTALLED_APPS = ['otree']
 # ================================
 # Model accuracy
 AI_ACCURACY = 0.5
+# Accuracy of the messenger
+PROBA_CORRECT_MESSENGER = 0.66
 # InitialTest
 NUMBER_OF_QUESTIONS_INITIAL_TEST = 10
 SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')

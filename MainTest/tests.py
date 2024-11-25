@@ -1,4 +1,4 @@
-import BeliefsSignals as pages
+import MainTest as pages
 from otree.api import Bot
 
 
@@ -7,8 +7,8 @@ class PlayerBot(Bot):
         yield pages.Explanation
         yield pages.Einschaetzung1, dict(Einschaetzung1=100)
         yield pages.ResultBelief
-        yield pages.ArticleInstruction
-        yield pages.ArticleCon
+        yield pages.TreatmentIntro
+        yield pages.TreatmentPassive
         yield pages.Questions, dict(ArticleQuestion1="Pro")
         yield pages.Result
         yield pages.Relevance, dict(relevance1=7, relevance2=7)

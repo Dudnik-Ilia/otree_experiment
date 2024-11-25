@@ -1,0 +1,19 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Explanation {{ endblock }}
+
+{{ block content }}
+
+<p>
+    Next, we ask you to estimate the probability that your performance is above performance of our AI in this session.
+    During the experiment, you will receive <strong>two pieces of information</strong> about your relative performance,
+    and you will have the opportunity to update your estimate each time.
+</p>
+
+<p>
+    Remember mechanism explained at the beginning of the experiment. 
+    This means you maximize your payout by giving your <strong> best possible estimate </strong>.
+</p>
+
+{% next_button %}
+
+{{ endblock }}

@@ -1,0 +1,36 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Performance Feedback Information {{ endblock }}
+
+{{ block content }}
+
+<p>
+    Shortly, you will receive information about your performance relative to AI <strong>2 times</strong>.
+    You will either receive a positive message, "Your performance was better than of AI",
+    or "Your performance was <strong>not</strong> better than of AI."
+</p>
+
+<p>
+    These messages will be delivered by one of three messengers, as shown in the image below. However, not all messengers are trustworthy. 
+    While two messengers always deliver the truth, one messenger will always provide false information about your performance. 
+    For each message, the computer will randomly select one of the three messengers, and <strong>you will not know which messenger was chosen</strong>.
+</p>
+
+<br>
+<center>
+    <p><img src="{% static "Signals/Signal.PNG" %}" style="width:800px;height:525px;" alt="Messenger Information" /></p>
+</center>
+<br>
+
+<p>
+    <strong>This means that each time, there is a 66% probability of receiving a true message and a 33% probability 
+    of receiving a false message about your actual performance. Note that, it is also possible to receive two false messages.</strong>
+</p>
+
+<p>
+    After each message is delivered, you will have another opportunity to estimate the probability that your performance is better than of AI.
+    Note, you maximize your payout by giving your best possible estimate.
+</p>
+
+{% next_button %}
+
+{{ endblock }}

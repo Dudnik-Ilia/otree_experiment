@@ -2,7 +2,7 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
 import random
 
-from settings import NUMBER_OF_BELIEFS, NUMBER_OF_SIGNALS, TREATMENT_CYCLE
+from settings import NUMBER_OF_BELIEFS, NUMBER_OF_SIGNALS, TREATMENT_CYCLE, AI_ACCURACY, PROBA_CORRECT_MESSENGER
 
 c = cu
 doc = ''
@@ -28,56 +28,27 @@ class Player(BasePlayer):
     current_belief_page = models.IntegerField(initial=1)
     current_signal_page = models.IntegerField(initial=1)
 
-    # INPUT
-    a = models.IntegerField()
-    b1 = models.IntegerField()
-    b2 = models.IntegerField()
+    # Results
+    result_round1 = models.FloatField()
+    result_round2 = models.FloatField()
 
     signal1 = models.StringField()
     signal2 = models.StringField()
-    prob_signal1 = models.FloatField()
-    prob_signal2 = models.FloatField()
 
-    Einschaetzung1 = models.IntegerField(label='Ihre Einschätzung in X%:', max=100, min=0)
-    Einschaetzung2 = models.IntegerField(label='Ihre Einschätzung in X%:', max=100, min=0)
-    Einschaetzung3 = models.IntegerField(label='Ihre Einschätzung in X%:', max=100, min=0)
-
-    randomX1 = models.IntegerField()
-    randomX2 = models.IntegerField()
-    randomX3 = models.IntegerField()
+    # INPUT
+    belief_assessment1 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
+    belief_assessment2 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
+    belief_assessment3 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
 
     def get_signal(self, singal_num: int):
-        setattr(self, f'prob_signal{singal_num}', 200/3)
-        setattr(self, f'b{singal_num}', random.randint(0,100))
-        prob_signal = getattr(self, f'prob_signal{singal_num}')
-        b = getattr(self, f'b{singal_num}')
-        # TODO
-        participant_result = 1.0
-        if participant_result > 0.5:
-            if b<=prob_signal: 
-                msg = "Your performance was in the top 50%"
-            else: 
-                msg = "Your performance was not in the top 50%"
-        else:
-            if b<=prob_signal: 
-                msg = "Your performance was not in the top 50%"
-            else: 
-                msg= "Your performance was in the top 50%"
-        setattr(self, f'signal{singal_num}', msg)
-
-    def define_payoff(self, pay_number: int):
-        participant = self.participant
-        setattr(self, f'randomX{pay_number}', random.randint(0,100))
-        Einschaetzung = getattr(self, f"Einschaetzung{pay_number}")
-        randomX = getattr(self, f"randomX{pay_number}")
-        participant_result = 1.0
-        if Einschaetzung>randomX:
-            if participant_result > 0.5:
-                participant.payoff+=200
-        else:
-            self.a=random.randint(0,100)
-            if self.a<=randomX:
-                participant.payoff+=200
+        # Get result in the round
+        praticipant_result = getattr(self, f'result_round{singal_num}')
+        # Decide whether we are going to tell the truth
+        to_tell_truth = True if random.random() < PROBA_CORRECT_MESSENGER else False
+        signal = praticipant_result > AI_ACCURACY
+        if not to_tell_truth:
+            signal = not signal # Lie
+        setattr(self, f'signal{singal_num}', int(signal))
 
 
 class Explanation(Page):
@@ -91,14 +62,14 @@ class Feedback_Explanation(Page):
         player.get_signal(singal_num=2)
 
 
-class ArticleInstruction(Page):
+class TreatmentIntro(Page):
     form_model = 'player'
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         # Assign Treatment
         player.participant.vars['treatment'] = next(TREATMENT_CYCLE)
 
-class ArticleCon(Page):
+class TreatmentPassive(Page):
     form_model = 'player'
     timeout_seconds = 5
     @staticmethod
@@ -106,7 +77,7 @@ class ArticleCon(Page):
         if player.participant.vars['treatment'] == 0:
             return True
 
-class ArticlePro(Page):
+class TreatmentActive(Page):
     form_model = 'player'
     timeout_seconds = 5
     @staticmethod
@@ -120,10 +91,9 @@ class Belief(Page):
     timeout_seconds = 30
     @property
     def form_fields(self):
-        return [f"Einschaetzung{self.player.current_belief_page}"]
+        return [f"belief_assessment{self.player.current_belief_page}"]
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
-        player.define_payoff(pay_number=player.current_belief_page)
         player.current_belief_page += 1
 
 
@@ -151,6 +121,6 @@ belief_pages = [Belief for _ in range(NUMBER_OF_BELIEFS)]
 signal_pages = [Signal for _ in range(NUMBER_OF_SIGNALS)]
 
 page_sequence = [Explanation, belief_pages[0], Feedback_Explanation,
-                  ArticleInstruction, ArticleCon, ArticlePro,
+                  TreatmentIntro, TreatmentPassive, TreatmentActive,
                     WaitForSignal1, signal_pages[0], belief_pages[1],
                       WaitForSignal2, signal_pages[1], belief_pages[2]]

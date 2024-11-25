@@ -1,0 +1,45 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Information about the study {{ endblock }}
+
+{{ block content }}
+
+<style>
+    .treatment-info {
+        background-color: #f9f9f9; /* Light gray background for distinction */
+        border-left: 6px solid #4caf50; /* Green accent to emphasize importance */
+        padding: 15px;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        border-radius: 4px; /* Rounded corners for a soft look */
+    }
+    .treatment-info h2 {
+        font-size: 18px;
+        color: #333; /* Dark text for clarity */
+    }
+    .treatment-info p {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="treatment-info">
+    <h2>Motivation for the study</h2>
+    <p>
+        We as a company are at a critical juncture: the decision to integrate AI systems to replace low-level managers. 
+        If we determine that AI significantly outperforms human decision-making, around 
+        <strong>1,000 managers</strong> at our branches are going to be replaced by an automated system.
+    </p>
+    <p>
+        However, there is a concern that losing unique human knowledge might disrupt decision-making processes 
+        and lead to unforeseen challenges. All this has led to organizing this experiment.
+    </p>
+    <p>
+        To make an experiment more spicy, we will display the 
+        results of the study participants in a <strong>leaderboard table</strong>, which will be updated regularly. 
+    </p>
+</div>
+
+<p>Now proceed to the second round of loan assessment.</p>
+{% next_button %}
+
+{{ endblock }}

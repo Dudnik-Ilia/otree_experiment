@@ -1,0 +1,40 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Information about the study {{ endblock }}
+
+{{ block content }}
+
+<style>
+.non-treatment-info {
+    background-color: #e7f3fe; /* Light blue background for distinction */
+    border-left: 6px solid #2196f3; /* Blue accent to emphasize technology focus */
+    padding: 20px;
+    font-size: 18px; /* Larger text for better visibility */
+    font-family: Arial, sans-serif;
+    line-height: 1.8; /* Slightly increased line spacing for readability */
+    margin-bottom: 25px;
+    border-radius: 5px; /* Smooth corners for a modern look */
+    text-align: left; /* Left-aligned for clarity */
+}
+</style>
+
+<div class="treatment-info">
+    <h2>Motivation for the study</h2>
+    <p>
+        We are currently integrating a new <strong>AI support system</strong> designed to assist in decision-making processes. 
+        This system aims to streamline operations, reduce errors, and improve overall efficiency by offering insights and 
+        recommendations based on advanced data analysis.
+    </p>
+    <p>
+        Our goal is to evaluate the system's effectiveness and gather valuable feedback. 
+        By participating in this study, you will help us assess how well the AI aligns with human judgment and whether it 
+        adds meaningful support to the decision-making process.
+    </p>
+    <p>
+        Your contributions will play a crucial role in determining the potential of this AI system and shaping its future development.
+    </p>
+</div>
+
+<p>Now proceed to the second round of loan assessment.</p>
+{% next_button %}
+
+{{ endblock }}
