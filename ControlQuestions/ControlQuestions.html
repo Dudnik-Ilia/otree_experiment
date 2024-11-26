@@ -3,73 +3,51 @@
 
 {{ block content }}
 
-<p>
-    Throughout this experiment, you will provide your estimate for the probability of a specific event occurring. 
-    The probability you provide will influence your payout. 
-    The payout mechanism is designed so that you have the highest chance of receiving an additional payout of 2 Euros 
-    if you give your best possible estimate truthfully.
-</p> 
-
-<p>
-    We will now explain the payout mechanism. 
-    As an example, we will use the event "Germany wins the European Football Championship 2021." 
-    This example is purely illustrative and will be replaced by a different event in the experiment.
-</p> 
-
-<p>
-    Please indicate the probability with which you believe that Germany will win the European Football Championship 2021:
-</p>  
-
-(Please select a whole number, e.g., 1, 2, 3,..., 99,100)
-
-<p>
-    {% formfield player.interactive %}
-</p> 
-    
-<p>
-    After you have provided your estimate, the computer will randomly select a 
-    <strong>number X between 0 and 100</strong> in the background. 
-    Each number is chosen with equal probability. 
-    This would affect your payout as follows:
-</p>
-  
-<ul>
-    <p><li>If your stated probability is at least as high as the number X drawn by the computer, 
-        then you will receive 2 Euros if Germany actually becomes the European champion.</li></p>
-    <p><li>If your stated probability is lower than the number X drawn by the computer, 
-        then you will receive 2 Euros with a probability of X%, regardless of whether 
-        Germany becomes the European champion in 2021.</li></p>
-</ul>
-  
-<p>
-    <strong>This payout mechanism always makes it advantageous to provide your best possible estimate truthfully.</strong>
+<p> 
+    In this experiment, you will provide your estimate for the probability of a specific event occurring. 
+    We use the <strong>Randomized Scoring Rule</strong> mechanism.
+    The probability you provide will influence your payout: the payout mechanism is designed so that <strong>the more
+     truthful</strong> your estimate is, <strong>the more chances</strong> of getting better payout.
 </p>
 
 <p>
-    For example, assume that your true estimate of the probability that Germany will win the European Football Championship 2021 
-    is 50%, and you state a probability of 30%. 
-    It is possible that the computer will draw the number X equal to 40. 
-    In this case, your probability of winning 2 Euros would be 40%. 
-    If you had stated 50%, you would win the 2 Euros with a probability of 50% according to your true estimate—specifically 
-    if Germany becomes the European champion.
+    Here how it works:
+</p> 
+<ul> 
+    <li>
+        You will state the probability <i>Y</i> (e.g., 50%) that you believe France will become the European champion.
+    </li> 
+    <li>
+        The computer randomly selects a number <i>X</i> between 0 and 100.
+        <ul> 
+            <li>
+                If <i>Y</i> &ge; <i>X</i>, you will receive additional payout <em>if France actually becomes champion</em>.
+            </li>
+            <li>
+                If <i>Y</i> &lt; <i>X</i>, you will win additional payout with a probability of <i>X</i>%, <em>regardless of whether France wins</em>.
+            </li>
+        </ul> 
+    </li> 
+</ul> 
+<p> 
+    <strong>Why is this mechanism used?</strong> This payout method ensures it is always in your best interest to truthfully report your belief.
 </p> 
 
 <p><strong>Control Questions:</strong></p>
 
 <p>
-    To increase your understanding of the payout mechanism, we now ask you to answer a few control questions. 
-    We will continue using the example event "Germany wins the European Football Championship 2021." 
-    Your answers to these questions will not impact your payouts in the experiment. 
-    However, we will only proceed to the next phase of the experiment once all participants have answered the questions correctly.
+    To increase your understanding of the payout mechanism, we now ask you to answer a few control questions.
+    However, we will only proceed to the next phase of the experiment once you have answered the questions correctly.
+    You have <em>3 tries</em>.
 </p>
 
 <p>
-    Assume for the control questions that your best possible estimate of the probability that Germany wins the European Championship in 2021 is 30%.
+    Assume your best estimate that France wins championship is 30%.
 </p>
 
 {% formfield player.cntr_quest_1 %}
 
-<p>Now, assume additionally that the computer has drawn the number X equal to 50.</p>
+<p>Now, assume additionally that the computer has drawn <i>X</i> equal to 50.</p>
 {% formfield player.cntr_quest_2 %}
 {% formfield player.cntr_quest_3 %}
 

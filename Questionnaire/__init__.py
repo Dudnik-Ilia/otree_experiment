@@ -33,8 +33,14 @@ class Player(BasePlayer):
         label='Math note in school:')
     if_all_clear = models.BooleanField(choices=[[True, 'Yes'], [False, 'No']], label='Were the instructions clear?')
 
-    relevance_replacement = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
-    relevance_involvement = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
+    relevance_replacement = models.IntegerField(choices=[[i, f'{i}'] for i in range(1, 8)],
+                                                 label="On a scale from 1 (very low) to 7 (very high), how relevant do you consider a situation where \
+                                                    AI models are integrated to replace around 1,000 branch-level managers in making critical decisions for loan approvals?",
+                                                      widget=widgets.RadioSelectHorizontal)
+    relevance_involvement = models.IntegerField(choices=[[i, f'{i}'] for i in range(1, 8)],
+                                                 label="Rate on a scale from 1 (not at all) to 7 (very much) how strongly you\
+                                                   tried to achieve the best performance result in the test.",
+                                                     widget=widgets.RadioSelectHorizontal)
 
     treatment_active1 = models.StringField(blank=True, choices=[['Hiring more managers to support AI', 'Hiring more managers to support AI'],
                                                                 ['Replacing managers in branches', 'Replacing managers in branches'],

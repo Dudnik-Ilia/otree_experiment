@@ -48,6 +48,11 @@ class Player(BasePlayer):
 
 class Intro(Page):
     form_model = 'player'
+    @staticmethod
+    def vars_for_template(player):
+        return {
+            'num_questions': NUM_OF_QUESTIONS_INITIAL_TEST,
+        }
 
 
 EXAMPLE_SAMPLE = {

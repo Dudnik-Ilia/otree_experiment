@@ -24,7 +24,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     # For dynamic pages
-    current_round = models.IntegerField(initial=1)
+    current_round = models.IntegerField(initial=0)
     current_question = models.IntegerField(initial=1)
 
     # Results
@@ -35,9 +35,9 @@ class Player(BasePlayer):
     signal2 = models.StringField()
 
     # INPUT
+    belief_assessment0 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
     belief_assessment1 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
     belief_assessment2 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
-    belief_assessment3 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
 
     question1 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
     question2 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
@@ -72,7 +72,7 @@ class Player(BasePlayer):
         signal = praticipant_result > AI_ACCURACY
         if not to_tell_truth:
             signal = not signal # Lie
-        setattr(self, f'signal{singal_num}', int(signal))
+        setattr(self, f'signal{singal_num}', str(int(signal)))
 
 
 class Explanation(Page):

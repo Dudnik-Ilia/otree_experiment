@@ -8,9 +8,11 @@
 </p>
 
 {% if treatment == 1 %}
-    {% formfield player.ArticleQuestionPro %}
+    {% formfield player.treatment_active1 %}
+    {% formfield player.treatment_active2 %}
 {% else %}
-    {% formfield player.ArticleQuestionCont %}
+    {% formfield player.treatment_passive1 %}
+    {% formfield player.treatment_passive2 %}
 {% endif %}
 
 {% next_button %}

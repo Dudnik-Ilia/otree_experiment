@@ -6,11 +6,15 @@
 <center>
     <p>
         {% if signal == 1 %}
-            <img src="{% static "Signals/Messenger_Pos.PNG" %}" alt="Positive Signal" /> 
+            <strong><>Your performance seems to be better than of AI</strong>
+            <img src="{% static "Signals/Messenger_pos.PNG" %}" alt="Positive Signal" style="width: 50%; height: 80%;"/> 
         {% else %}
-            <img src="{% static "Signals/Messenger_Neg.PNG" %}" alt="Negative Signal" /> 
+            <strong>Your performance seems to be worse than of AI</strong>
+            <img src="{% static "Signals/Messenger_neg.PNG" %}" alt="Negative Signal" style="width: 50%; height: 80%;"/> 
         {% endif %}
     </p>
 </center>
+
+{% next_button %}
 
 {{ endblock }}
