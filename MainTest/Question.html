@@ -1,0 +1,126 @@
+{{ extends 'global/Page.html' }}
+
+{{ block content }}  <!-- Begin content block -->
+<!-- Page Content Starts Here -->
+<style>
+    /* Table Styling */
+    .sample-table {
+        width: 70%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+    }
+
+    .sample-table th, .sample-table td {
+        border: 2px solid #ddd;
+        padding: 12px; /* Increased padding for spacing */
+    }
+
+    .sample-table th {
+        background-color: #f2f2f2; /* Light gray background for headers */
+        text-align: left;
+        font-size: 20px;
+    }
+
+    .sample-table td {
+        text-align: left; /* Left-align text for better readability */
+        font-size: 16px;
+        vertical-align: top; /* Align text to the top for multi-line values */
+    }
+
+    /* Section Header Styling */
+    .sample-section-header {
+        text-align: left;
+        font-weight: bold;
+        font-size: 16px;
+        background-color: #e6f7ff; /* Light blue background */
+        padding: 10px;
+        border-top: 2px solid #007bff; /* Add a top border for separation */
+        border-bottom: 2px solid #007bff; /* Add a bottom border */
+        color: #007bff; /* Blue text */
+    }
+
+    .ai-decision-text {
+        font-size: 16px;
+        color: #0056b3; /* Deep blue for emphasis */
+        background-color: #f0f8ff; /* Light blue background for contrast */
+        border-left: 4px solid #0056b3; /* Blue accent line on the left */
+        padding: 10px;
+        margin-top: 20px;
+        font-family: Arial, sans-serif; /* Modern font */
+        border-radius: 4px; /* Rounded edges for a polished look */
+    }
+
+
+    /* Table Container */
+    .table-container {
+        margin: 30px auto;
+    }
+</style>
+
+<div class="row">
+    <div class="column1">
+        <strong>{{ title }}</strong>  <!-- Dynamic title -->
+        <br>
+        <div class="table-container">
+            <!-- Dynamic table for sample_dict grouped by categories -->
+            <table class="sample-table">
+                <!-- Personal Info Section -->
+                <tr class="sample-section-header"><td colspan="2">Personal Info</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Personal status and sex', 'Age (in years)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Financial Security Section -->
+                <tr class="sample-section-header"><td colspan="2">Financial Security</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Housing status', 'Bank account status', 'Savings account status'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Credit History Section -->
+                <tr class="sample-section-header"><td colspan="2">Credit History</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Credit history', 'Other credits'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Loan Details Section -->
+                <tr class="sample-section-header"><td colspan="2">Loan Details</td></tr>
+                {% for key, value in sample_dict.items %}
+                {% if key in ['Installment rate: % of income used for loan payments', 'Credit amount (applicant has requested)', 'Loan duration (months)'] %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    <div class="column">
+        <div class="wrapper">
+            <br>
+            <p class="ai-decision-text">Our AI thinks we need to: <strong>{{ ai_decision }}</strong></p>
+            <br>
+            {% formfields %}
+            {% next_button %}
+        </div>
+    </div>
+</div>
+
+{{ endblock }}

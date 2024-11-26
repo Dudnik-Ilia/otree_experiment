@@ -12,7 +12,7 @@ class PlayerBot(Bot):
         yield pages.Questions, dict(ArticleQuestion1="Pro")
         yield pages.Result
         yield pages.Relevance, dict(relevance1=7, relevance2=7)
-        yield pages.Feedback_Explanation
+        yield pages.FeedbackExplanation
         yield pages.Signal1
         yield pages.Einschaetzung2, dict(Einschaetzung2=100)
         yield pages.Signal2

@@ -1,6 +1,6 @@
 from otree.api import BaseConstants, BasePlayer, BaseSubsession,\
     BaseGroup, models, Page, widgets
-from settings import NUMBER_OF_CONTROL_QUESTIONS, NUM_ROUNDS_CONTROL_QUESTIONS
+from settings import NUM_OF_CONTROL_QUESTIONS, NUM_ROUNDS_CONTROL_QUESTIONS
 
 doc = """
     Control Questions checking whether the player understands how to answer on questions regarding probabilities.
@@ -40,7 +40,7 @@ class Player(BasePlayer):
     def _calculate_points(self) -> int:
         correct_questions = []
         wrong_questions = []
-        for question in range(1, NUMBER_OF_CONTROL_QUESTIONS+1):
+        for question in range(1, NUM_OF_CONTROL_QUESTIONS+1):
             if getattr(self, 'cntr_quest_'+str(question)) == 'True':
                 correct_questions.append(question)
             else:
@@ -51,9 +51,9 @@ class Player(BasePlayer):
     def check_answers(self) -> bool:
         control_points = self._calculate_points()
         # Register attempt
-        if control_points < NUMBER_OF_CONTROL_QUESTIONS:
+        if control_points < NUM_OF_CONTROL_QUESTIONS:
             self.attempts += 1
-        if control_points == NUMBER_OF_CONTROL_QUESTIONS:
+        if control_points == NUM_OF_CONTROL_QUESTIONS:
             return True
         return False
 

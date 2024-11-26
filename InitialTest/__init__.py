@@ -1,5 +1,5 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
-from settings import NUMBER_OF_QUESTIONS_INITIAL_TEST, SAMPLES_INITIAL_TEST, AI_ACCURACY
+from settings import NUM_OF_QUESTIONS_INITIAL_TEST, SAMPLES_INITIAL_TEST, AI_ACCURACY
 import random
 
 c = cu
@@ -26,45 +26,24 @@ class Player(BasePlayer):
     current_question = models.IntegerField(initial=1)
 
     # INPUT FIELDS
-    example_question = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question1 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question2 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question3 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question4 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question5 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question6 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question7 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question8 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question9 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
-    Question10 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']],
-                                label='Should we approve this loan request?',
-                                  widget=widgets.RadioSelect)
+    example_question = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question1 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question2 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question3 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question4 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question5 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question6 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question7 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question8 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question9 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+    question10 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
+
     still_active = models.BooleanField(blank=True, choices=[[True, 'Yes'], [False, 'No']], initial=False,
                                        label='Please click "Yes" and "Continue" within 60 seconds if you continue to actively participate in the experiment', widget=widgets.RadioSelect)
 
     @staticmethod
-    def random_number():
-        return random.randrange(10,50,10)
+    def add_payout_correct_quest():
+        return random.randrange(1,5,1)
 
 
 class Intro(Page):
@@ -117,7 +96,7 @@ class Question(Page):
     @property
     def form_fields(self):
         # Use player's current question to set form_fields dynamically
-        return [f"Question{self.player.current_question}"]
+        return [f"question{self.player.current_question}"]
     @staticmethod
     def vars_for_template(player):
         # Get the current quiz field from the generator
@@ -128,7 +107,7 @@ class Question(Page):
             # Make incorrect prediction
             ai_decision = "Decline" if ai_decision == "Approve" else "Approve"
         return {
-            'title': f"Question {question_num}/{NUMBER_OF_QUESTIONS_INITIAL_TEST}",
+            'title': f"Question {question_num}/{NUM_OF_QUESTIONS_INITIAL_TEST}",
             'sample_dict': SAMPLES_INITIAL_TEST.iloc[question_num-1].to_dict(),
             'ai_decision': ai_decision,
             'real_decision': SAMPLES_INITIAL_TEST['class'].iloc[question_num-1] # For debugging
@@ -137,10 +116,10 @@ class Question(Page):
     def before_next_page(player: Player, timeout_happened):
         # Access the current question
         question_num = player.current_question
-        user_answer = getattr(player, 'Question'+str(question_num))
+        user_answer = getattr(player, 'question'+str(question_num))
         real_answer = SAMPLES_INITIAL_TEST['class'].iloc[question_num-1]
         if (user_answer == "Approve" and real_answer == 1) or (user_answer == "Decline" and real_answer == 0):
-            player.participant.payoff += player.random_number()
+            player.participant.payoff += player.add_payout_correct_quest()
             player.correct_answers += 1
         # Increase question number
         player.current_question += 1
@@ -158,7 +137,7 @@ class ConfirmActive(Page):
             return 'Dropout'
 
 
-quiz_pages = [Question for _ in range(NUMBER_OF_QUESTIONS_INITIAL_TEST)]
+quiz_pages = [Question for _ in range(NUM_OF_QUESTIONS_INITIAL_TEST)]
 
 page_sequence = [
     Intro, 

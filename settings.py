@@ -30,7 +30,7 @@ SESSION_CONFIGS =   [
         ]
     },
     {
-        'name': 'Belief',
+        'name': 'MainTest',
         'num_demo_participants': 1,
         'app_sequence': [
             'MainTest', 'Questionnaire', 'Dropout'
@@ -59,11 +59,13 @@ AI_ACCURACY = 0.5
 # Accuracy of the messenger
 PROBA_CORRECT_MESSENGER = 0.66
 # InitialTest
-NUMBER_OF_QUESTIONS_INITIAL_TEST = 10
+NUM_OF_QUESTIONS_INITIAL_TEST = 10
 SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')
 # ControlQuestions
-NUMBER_OF_CONTROL_QUESTIONS = 3
+NUM_OF_CONTROL_QUESTIONS = 3
 NUM_ROUNDS_CONTROL_QUESTIONS = 3
-# BeliefsSignals
-NUMBER_OF_BELIEFS = 3
-NUMBER_OF_SIGNALS=2
+# MainTest
+NUM_OF_BELIEFS = 3
+NUM_OF_SIGNALS=2
+NUM_OF_QUESTIONS_MAIN_TEST_PER_ROUND = 10
+SAMPLES_MAIN_TEST = pd.read_csv('_static/samples/picked_samples_main.csv')
