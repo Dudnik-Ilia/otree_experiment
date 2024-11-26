@@ -21,30 +21,49 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    Sex = models.StringField(choices=[['female', 'female'], ['male', 'male']], label='Sex:')
-    Education = models.StringField(label='Education:')
-    Age = models.IntegerField(label='Age:', max=100, min=14)
-    MathNote = models.IntegerField(choices=[
+    sex = models.StringField(choices=[['female', 'female'], ['male', 'male']], label='Sex:')
+    education = models.StringField(label='Education:')
+    age = models.IntegerField(label='Age:', max=100, min=14)
+    math_note = models.IntegerField(choices=[
             [0, 'Excellent'],
             [1, 'Good'],
             [2, 'Medium'],
             [3, 'Bad']
         ],
         label='Math note in school:')
-    IfAllClear = models.BooleanField(choices=[[True, 'Yes'], [False, 'No']], label='Were the instructions clear?')
+    if_all_clear = models.BooleanField(choices=[[True, 'Yes'], [False, 'No']], label='Were the instructions clear?')
 
-    relevanceStudy = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
-    relevanceProfession = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
-    relevanceInvolvement = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
+    relevance_replacement = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
+    relevance_involvement = models.IntegerField(choices=[[i, ' '] for i in range(1, 8)], widget=widgets.RadioSelectHorizontal)
 
-    ArticleQuestionPro = models.StringField(blank=True, choices=[['Kovacs and Convay', 'Kovacs and Convay'], ['True', 'DeVader und Alliger']],
-                                             label='Wie heißen die Wissenschaftler, die gezeigt haben, dass intelligente Menschen ein größeres Führungspotential besitzen?',
+    treatment_active1 = models.StringField(blank=True, choices=[['Hiring more managers to support AI', 'Hiring more managers to support AI'],
+                                                                ['Replacing managers in branches', 'Replacing managers in branches'],
+                                                                  ["Using AI only for minor tasks", "Using AI only for minor tasks"],
+                                                                   ["Expanding the number of branches", "Expanding the number of branches"]],
+                                             label='What was the potential impact of adopting the AI system mentioned in the study?',
                                              initial=False, widget=widgets.RadioSelect)
-    ArticleQuestionCon = models.StringField(blank=True, choices=[['Nassim Djabou', 'Nassim Djabou'], ['True', 'Nassim Taleb']],
-                                                label='Wie heißt der Wissenschaftler aus dem Artikel zur Bedeutung von Intelligenztests?',
-                                                  initial=False, widget=widgets.RadioSelect)
+    treatment_active2 = models.StringField(blank=True, choices=[['Poor user interface design', 'Poor user interface design'],
+                                                                ['Insufficient computing power', 'Insufficient computing power'],
+                                                                  ["High financial cost", "High financial cost"],
+                                                                   ["Loss of human knowledge", "Loss of human knowledge"]],
+                                             label='What concern was mentioned about relying entirely on AI for decisions?',
+                                             initial=False, widget=widgets.RadioSelect)
 
-    QuestionRating = models.IntegerField(
+
+    treatment_passive1 = models.StringField(blank=True, choices=[['To reduce operational costs', 'To reduce operational costs'],
+                                                                ['To completely replace managers', 'To completely replace managers'],
+                                                                  ["To assist in decision-making processes", "To assist in decision-making processes"],
+                                                                   ["To conduct psychological studies", "To conduct psychological studies"]],
+                                             label='What was the stated purpose of integrating the AI support system?',
+                                             initial=False, widget=widgets.RadioSelect)
+    treatment_passive2 = models.StringField(blank=True, choices=[['Assess the AIs helpfulness', 'Assess the AIs helpfulness'],
+                                                                ['Compare different management strategies', 'Compare different management strategies'],
+                                                                  ["Identify poor-performing participants", "Identify poor-performing participants"],
+                                                                   ["Evaluate the ethical implications of AI", "Evaluate the ethical implications of AI"]],
+                                             label='What was the main goal of the study according to the description?',
+                                             initial=False, widget=widgets.RadioSelect)
+
+    how_truthful_answer = models.IntegerField(
         choices=[
             [0, 'I tried to give my best possible estimate.'],
             [1, 'I did not think much and gave a random estimate.'],
@@ -54,28 +73,31 @@ class Player(BasePlayer):
         label='Which of the following statements best describes your approach?',
         widget=widgets.RadioSelect
     )
-    Justification = models.LongStringField(label='Please describe your answer')
+    justification = models.LongStringField(label='Please describe your answer (optional)', blank=True)
 
     def question_payoff(self):
         participant = self.participant
-        if self.ArticleQuestionPro=="True" or self.ArticleQuestionCon=="True":
-                participant.payoff+=200
+        if self.treatment_active1=="True" or self.treatment_passive1=="True":
+                participant.payoff+=20
 
 
 class QuestionnaireStart(Page):
     form_model = 'player'
 
-class Relevance(Page):
+# Double check if the treatment was successfull
+class TreatmentCheck(Page):
     form_model = 'player'
-    form_fields = ['relevanceStudy', 'relevanceProfession', 'relevanceInvolvement']
+    form_fields = ['relevance_replacement', 'relevance_involvement']
 
-class Beliefs_Rational(Page):
+# Ask how truthful were the answers
+class BeliefsQuestion(Page):
     form_model = 'player'
-    form_fields = ['QuestionRating', 'Justification']
+    form_fields = ['how_truthful_answer', 'justification']
 
-class Article_Question(Page):
+# To check whether participant read the treatment carefully + add payout
+class TreatmentQuestion(Page):
     form_model = 'player'
-    form_fields = ['ArticleQuestionPro', 'ArticleQuestionCon']
+    form_fields = ['treatment_active1', 'treatment_active2', 'treatment_passive1', 'treatment_passive2']
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         player.question_payoff()
@@ -86,7 +108,7 @@ class Article_Question(Page):
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['Sex', 'Age', 'Education', 'MathNote', 'IfAllClear']
+    form_fields = ['sex', 'age', 'education', 'math_note', 'if_all_clear']
 
 
-page_sequence = [QuestionnaireStart, Relevance, Beliefs_Rational, Article_Question, Demographics]
+page_sequence = [QuestionnaireStart, TreatmentCheck, BeliefsQuestion, TreatmentQuestion, Demographics]

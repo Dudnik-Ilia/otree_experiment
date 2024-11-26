@@ -1,0 +1,27 @@
+{{ extends 'global/Page.html' }}
+{{ block title }} Relevance Assessment {{ endblock }}
+
+{{ block content }}
+
+<p>
+    On a scale from 1 (very low) to 7 (very high), how relevant do you consider a situation
+    where AI models are integrated to replace around 1,000 branch-level managers in making
+    critical decisions for loan approvals?
+</p>
+
+<p>
+    1&ensp;&ensp;{{ form.relevanceReplacement }}&ensp;7
+</p>
+
+<p>
+    Rate on a scale from 1 (not at all) to 7 (very much) how strongly you tried to achieve
+     the best performance result in the test.
+</p>
+
+<p>
+    1&ensp;&ensp;{{ form.relevanceInvolvement }}&ensp;7
+</p>
+
+<div align="right"> {% next_button %} </div>
+
+{{ endblock }}
