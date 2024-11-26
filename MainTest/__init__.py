@@ -31,8 +31,8 @@ class Player(BasePlayer):
     correct_answers_round1 = models.IntegerField(initial=0)
     correct_answers_round2 = models.IntegerField(initial=0)
 
-    signal1 = models.StringField()
-    signal2 = models.StringField()
+    signal1 = models.IntegerField()
+    signal2 = models.IntegerField()
 
     # INPUT
     belief_assessment0 = models.IntegerField(label='Your assessment in %:', max=100, min=0)
@@ -72,7 +72,7 @@ class Player(BasePlayer):
         signal = praticipant_result > AI_ACCURACY
         if not to_tell_truth:
             signal = not signal # Lie
-        setattr(self, f'signal{singal_num}', str(int(signal)))
+        setattr(self, f'signal{singal_num}', int(signal))
 
 
 class Explanation(Page):
@@ -110,9 +110,9 @@ class Signal(Page):
     form_model = 'player'
     @staticmethod
     def vars_for_template(player: Player):
-        return dict(
-            signal = getattr(player, f"signal{player.current_round}"),
-        )
+        return {
+            'signal' : getattr(player, f"signal{player.current_round}"),
+        }
 
 
 class Belief(Page):
