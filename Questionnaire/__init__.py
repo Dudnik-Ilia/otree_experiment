@@ -75,11 +75,12 @@ class Player(BasePlayer):
     )
     justification = models.LongStringField(label='Please describe your answer (optional)', blank=True)
 
+    # Add payout if the questions were correct about Treatment
     def question_payoff(self):
-        participant = self.participant
-        if self.treatment_active1=="True" or self.treatment_passive1=="True":
-                participant.payoff+=20
-
+        if self.treatment_active1=="Replacing managers in branches" and self.treatment_active2=="Loss of human knowledge":
+                self.participant.payoff+=20
+        if self.treatment_passive1=="To assist in decision-making processes" and self.treatment_passive2=="Assess the AIs helpfulness":
+                self.participant.payoff+=20
 
 class QuestionnaireStart(Page):
     form_model = 'player'
