@@ -32,7 +32,7 @@ class Player(BasePlayer):
 
     # Method to save a unique ID for the player
     def save_id(self):
-        self.participant.vars["id"] = self.id
+        self.participant.vars["id"] = self.participant.code
 
 
 class Confirmation(Page):

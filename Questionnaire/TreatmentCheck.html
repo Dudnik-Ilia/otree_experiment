@@ -3,12 +3,8 @@
 
 {{ block content }}
 
-<p>
-    1&ensp;&ensp;{{ form.relevance_replacement }}&ensp;7
-    <br>
-    1&ensp;&ensp;{{ form.relevance_involvement }}&ensp;7
-</p>
+{% formfields %}
 
-<div align="right"> {% next_button %} </div>
+{% next_button %}
 
 {{ endblock }}
