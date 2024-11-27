@@ -18,8 +18,8 @@ SESSION_CONFIGS =   [
             'InitialTest', 
             'MainTest', 
             'Questionnaire',
-            'Dropout', 
             'Payout',
+            'Dropout', 
         ]
     },
     {

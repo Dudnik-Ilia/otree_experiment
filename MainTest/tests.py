@@ -15,13 +15,13 @@ class PlayerBot(Bot):
         save_html(self.html)
         yield pages.TreatmentIntro
         save_html(self.html)
-        yield pages.TreatmentPassive
-        save_html(self.html)
-        yield pages.TreatmentActive
+        if self.participant.vars['treatment'] == 0:
+            yield pages.TreatmentPassive
+        else:
+            yield pages.TreatmentActive
         save_html(self.html)
         
-        for i in range(1+self.player.round_number*NUM_OF_QUESTIONS_INITIAL_TEST,
-                        (self.player.round_number+1)*NUM_OF_QUESTIONS_INITIAL_TEST + 1):
+        for i in range(1, self.player.round_number*NUM_OF_QUESTIONS_INITIAL_TEST + 1):
             answer = "Approve" if SAMPLES_MAIN_TEST['class'].iloc[i-1] == 1 else "Decline"
             yield pages.Question, {f"question{i}": answer}
             save_html(self.html)
@@ -32,7 +32,7 @@ class PlayerBot(Bot):
         yield pages.Belief, dict(belief_assessment1=50)
         save_html(self.html)
 
-        for i in range(1+self.player.round_number*NUM_OF_QUESTIONS_INITIAL_TEST,
+        for i in range(1+(self.player.round_number)*NUM_OF_QUESTIONS_INITIAL_TEST,
                         (self.player.round_number+1)*NUM_OF_QUESTIONS_INITIAL_TEST + 1):
             answer = "Approve" if SAMPLES_MAIN_TEST['class'].iloc[i-1] == 1 else "Decline"
             yield pages.Question, {f"question{i}": answer}

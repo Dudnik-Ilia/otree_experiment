@@ -4,15 +4,13 @@
 {{ block content }}
 
 <center>
-    <p>
-        {% if signal == 1 %}
-            <strong><>Your performance seems to be better than of AI</strong>
-            <img src="{% static "Signals/Messenger_pos.PNG" %}" alt="Positive Signal" style="width: 50%; height: 80%;"/> 
-        {% else %}
-            <strong>Your performance seems to be worse than of AI</strong>
-            <img src="{% static "Signals/Messenger_neg.PNG" %}" alt="Negative Signal" style="width: 50%; height: 80%;"/> 
-        {% endif %}
-    </p>
+    {% if signal == 1 %}
+        <p><strong>Your performance seems to be better than of AI</strong></p>
+        <p><img src="{% static "Signals/Messenger_pos.png" %}" alt="Positive Signal" style="width: 50%; height: auto;"/> </p>
+    {% else %}
+        <p><strong>Your performance seems to be worse than of AI</strong></p>
+        <p><img src="{% static "Signals/Messenger_neg.png" %}" alt="Negative Signal" style="width: 50%; height: auto;"/> </p>
+    {% endif %}
 </center>
 
 {% next_button %}

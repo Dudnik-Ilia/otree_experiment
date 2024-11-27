@@ -24,7 +24,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     confirm = models.StringField(
-        choices=[['Yes', 'Yes, I would like to participate in the experiment']],
+        choices=[['Yes, I would like to participate in the experiment', 'Yes, I would like to participate in the experiment']],
         label='',
         widget=widgets.RadioSelect
     )

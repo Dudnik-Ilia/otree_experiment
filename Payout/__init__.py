@@ -46,7 +46,7 @@ class Payout(Page):
     def vars_for_template(player: Player):
         participant = player.participant
         return dict(
-            ID=participant.vars.get("ID"),
+            ID=participant.vars.get("id"),
             payoff=participant.payoff,
         )
 
