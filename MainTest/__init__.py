@@ -1,17 +1,18 @@
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
 import random
 
-from settings import NUM_OF_BELIEFS, NUM_OF_QUESTIONS_MAIN_TEST_PER_ROUND, NUM_OF_SIGNALS, SAMPLES_MAIN_TEST, TREATMENT_CYCLE, AI_ACCURACY, PROBA_CORRECT_MESSENGER
+from settings import NUM_OF_BELIEFS, NUM_OF_QUESTIONS_MAIN_TEST_PER_ROUND, NUM_OF_SIGNALS,\
+      SAMPLES_MAIN_TEST, TREATMENT_CYCLE, AI_ACCURACY, PROBA_CORRECT_MESSENGER
 
 c = cu
 doc = ''
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'Beliefs_Signals'
+    NAME_IN_URL = 'MainTest'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 1
-    ADMIN_REPORT_TEMPLATE = 'Beliefs_Signals/admin_report.html'
+    ADMIN_REPORT_TEMPLATE = 'MainTest/admin_report.html'
 
 
 class Subsession(BaseSubsession):

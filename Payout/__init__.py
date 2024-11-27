@@ -40,14 +40,14 @@ class Payout(Page):
     @staticmethod
     def is_displayed(player: Player):
         participant = player.participant
-        return participant.vars.get("all_completed") == True and participant.vars.get("dropout") == False
+        return participant.vars.get("dropout") == False
 
     @staticmethod
     def vars_for_template(player: Player):
         participant = player.participant
         return dict(
             ID=participant.vars.get("ID"),
-            payoff=participant.payoff_plus_participation_fee(),
+            payoff=participant.payoff,
         )
 
 
