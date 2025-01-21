@@ -1,4 +1,3 @@
-
 from otree.api import BaseConstants, BaseSubsession, BaseGroup, BasePlayer, models, Page, cu, widgets
 
 c = cu
