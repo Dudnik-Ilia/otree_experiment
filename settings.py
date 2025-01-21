@@ -1,11 +1,38 @@
 import itertools
 import pandas as pd
 
+# Cycle to iterate over the treatment
 TREATMENT_CYCLE = itertools.cycle([1, 0])
+
+# ================================
+# MTurk Settings
+
+qualifications = [
+    # At least 60% of HITs approved
+    {
+        'QualificationTypeId': "000000000000000000L0",
+        'Comparator': "GreaterThanOrEqualTo",
+        'IntegerValues': [60]
+    },
+]
+
+mturk_hit_settings=dict(
+    keywords='bonus, study',
+    title='Credit Assessment Study',
+    description='Financial company conducting a study to assess decision-making in credit approval.',
+    frame_height=500,
+    template='global/mturk_template.html',
+    minutes_allotted_per_assignment=60,
+    expiration_hours=1 * 24,
+    qualification_requirements=qualifications
+    # grant_qualification_id='YOUR_QUALIFICATION_ID_HERE', # to prevent retakes
+),
+
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.01,
-    'participation_fee': 0.1
+    'participation_fee': 0.1,
+    'mturk_hit_settings': mturk_hit_settings
     }
 
 SESSION_CONFIGS =   [
