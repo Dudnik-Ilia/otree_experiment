@@ -5,7 +5,7 @@ TREATMENT_CYCLE = itertools.cycle([1, 0])
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.01,
-    'participation_fee': 4
+    'participation_fee': 0.1
     }
 
 SESSION_CONFIGS =   [

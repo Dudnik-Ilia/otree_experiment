@@ -10,7 +10,7 @@ class PlayerBot(Bot):
         save_html(self.html)
         yield pages.TreatmentCheck, dict(relevance_replacement=7, relevance_involvement=7)
         save_html(self.html)
-        yield pages.BeliefsQuestion, dict(how_truthful_answer=0, justification='')
+        yield pages.HowTruthfulQuestion, dict(how_truthful_answer=0, justification='')
         save_html(self.html)
         if self.participant.vars['treatment'] == 1:
             yield pages.TreatmentQuestion, dict(treatment_active1="Replacing managers in branches",

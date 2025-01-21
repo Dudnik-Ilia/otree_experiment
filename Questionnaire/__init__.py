@@ -22,25 +22,54 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     sex = models.StringField(choices=[['female', 'female'], ['male', 'male']], label='Sex:')
-    education = models.StringField(label='Education:')
-    age = models.IntegerField(label='Age:', max=100, min=14)
-    math_note = models.IntegerField(choices=[
-            [0, 'Excellent'],
-            [1, 'Good'],
-            [2, 'Medium'],
-            [3, 'Bad']
+    profession = models.StringField(
+        choices=[
+            ['technical', 'Technical/Engineering'],
+            ['medical', 'Medical/Healthcare'],
+            ['business', 'Business/Finance'],
+            ['arts', 'Arts/Humanities'],
+            ['science', 'Science/Research'],
+            ['education', 'Education/Teaching'],
+            ['other', 'Other']
         ],
-        label='Math note in school:')
+        label='Professional Field:',
+        widget=widgets.RadioSelect
+    )
+    age = models.StringField(
+        choices=[
+            ['14-18', '14-18 years'],
+            ['19-25', '19-25 years'],
+            ['26-35', '26-35 years'],
+            ['36-45', '36-45 years'],
+            ['46-60', '46-60 years'],
+            ['60+', '60 years +']
+        ],
+        label='Age:',
+        widget=widgets.RadioSelect
+    )
+    math_note = models.IntegerField(
+        choices=[
+            [3, 'Excellent'],
+            [2, 'Good'],
+            [1, 'Medium'],
+            [0, 'Bad']
+        ],
+        label='Math grade in school:'
+    )
     if_all_clear = models.BooleanField(choices=[[True, 'Yes'], [False, 'No']], label='Were the instructions clear?')
 
     relevance_replacement = models.IntegerField(choices=[[i, f'{i}'] for i in range(1, 8)],
-                                                 label="On a scale from 1 (very low) to 7 (very high), how relevant do you consider a situation where \
+                                                 label="On a scale from 1 (very low) to 7 (very high), how relevant/probable do you consider a situation where \
                                                     AI models are integrated to replace around 1,000 branch-level managers in making critical decisions for loan approvals?",
                                                       widget=widgets.RadioSelectHorizontal)
     relevance_involvement = models.IntegerField(choices=[[i, f'{i}'] for i in range(1, 8)],
                                                  label="Rate on a scale from 1 (not at all) to 7 (very much) how strongly you\
                                                    tried to achieve the best performance result in the test.",
                                                      widget=widgets.RadioSelectHorizontal)
+    relevance_ai_role = models.IntegerField(choices=[[i, f'{i}'] for i in range(1, 8)],
+                                           label="On a scale from 1 (not at all) to 7 (very much), how likely do you think it \
+                                            is that AI systems will play a central role in jobs traditionally held by humans?",
+                                             widget=widgets.RadioSelectHorizontal)
 
     treatment_active1 = models.StringField(blank=True, choices=[['Hiring more managers to support AI', 'Hiring more managers to support AI'],
                                                                 ['Replacing managers in branches', 'Replacing managers in branches'],
@@ -69,12 +98,12 @@ class Player(BasePlayer):
                                              label='What was the main goal of the study according to the description?',
                                              initial=False, widget=widgets.RadioSelect)
 
-    how_truthful_answer = models.IntegerField(
+    how_truthful_question = models.IntegerField(
         choices=[
             [0, 'I tried to give my best possible estimate.'],
             [1, 'I did not think much and gave a random estimate.'],
-            [2, 'I gave a higher probability than my actual estimate.'],
-            [3, 'I gave a lower probability than my actual estimate.']
+            [2, 'I gave a (little/much) higher probability than my actual estimate.'],
+            [3, 'I gave a (little/much) lower probability than my actual estimate.']
         ],
         label='Which of the following statements best describes your approach?',
         widget=widgets.RadioSelect
@@ -94,12 +123,12 @@ class QuestionnaireStart(Page):
 # Double check if the treatment was successfull
 class TreatmentCheck(Page):
     form_model = 'player'
-    form_fields = ['relevance_replacement', 'relevance_involvement']
+    form_fields = ['relevance_replacement', 'relevance_involvement', 'relevance_ai_role']
 
 # Ask how truthful were the answers
-class BeliefsQuestion(Page):
+class HowTruthfulQuestion(Page):
     form_model = 'player'
-    form_fields = ['how_truthful_answer', 'justification']
+    form_fields = ['how_truthful_question', 'justification']
 
 # To check whether participant read the treatment carefully + add payout
 class TreatmentQuestion(Page):
@@ -115,7 +144,7 @@ class TreatmentQuestion(Page):
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['sex', 'age', 'education', 'math_note', 'if_all_clear']
+    form_fields = ['sex', 'age', 'profession', 'math_note', 'if_all_clear']
 
 
-page_sequence = [QuestionnaireStart, TreatmentCheck, BeliefsQuestion, TreatmentQuestion, Demographics]
+page_sequence = [QuestionnaireStart, TreatmentCheck, HowTruthfulQuestion, TreatmentQuestion, Demographics]
