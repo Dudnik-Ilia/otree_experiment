@@ -9,7 +9,6 @@ class PlayerBot(Bot):
             yield pages.ControlQuestions, dict(
                 cntr_quest_1="True",
                 cntr_quest_2="True",
-                cntr_quest_3="True",
             )
             save_html(self.html)
             yield pages.Result

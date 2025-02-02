@@ -3,53 +3,53 @@
 
 {{ block content }}
 
-<p> 
-    In this experiment, you will provide your estimate for the probability of a specific event occurring. 
-    We use the <strong>Randomized Scoring Rule</strong> mechanism.
-    The probability you provide will influence your payout: the payout mechanism is designed so that <strong>the more
-     truthful</strong> your estimate is, <strong>the more chances</strong> of getting better payout.
-</p>
+<p>In this experiment, you will provide your estimate for the probability of a specific event occurring. We use the <b>Randomized Scoring Rule</b> mechanism.</p>
+
+<p><b>What does this mean?</b> Your estimate affects your payout: the more accurate your probability estimate, the better your expected payout.</p>
+
+<h3>How it Works</h3>
+<ul>
+  <li>You state the probability <b>Y</b> (e.g., <i>50%</i>) that you believe France will become the European champion.</li>
+  <li>The computer randomly selects a number <b>X</b> between <i>0 and 100</i>.</li>
+  <li>If <b>Y ≥ X</b>, you get a bonus payout <b>if France actually wins</b>.</li>
+  <li>If <b>Y < X</b>, you win a bonus payout with a probability of <b>X%</b>, regardless of whether France wins.</li>
+</ul>
+
+<h3>Why is this Mechanism Used?</h3>
+<p>This method ensures that <b>being truthful maximizes your chances of receiving better payout.</b></p>
+
+<p><b>Example:</b>Suppose you believe France has a <b>60%</b> chance of winning.</p>
+<ul>
+  <li>You report <b>Y = 60%</b>.</li>
+  <li>The computer randomly picks <b>X = 40</b> (between 0 and 100).</li>
+  <li>Since <b>60 ≥ 40</b>, you will get a bonus <b>if France wins.</b></li>
+  <li>If you had reported an artificially higher probability (e.g., <b>Y = 90%</b>), you would not gain any advantage.</li>
+</ul>
+
+<p><b>Example:</b> If you <b>understate</b> your probability (e.g., say 30% when you really think it's 60%), you might win less because:</p>
+<ul>
+  <li>If <b>X = 50</b>, but France actually wins, you <b>won't receive the bonus</b> because <b>30 < 50</b>.</li>
+  <li>However, if you had reported your true belief (60%), you <b>would have won the bonus</b> since <b>60 ≥ 50</b> and France won.</li>
+</ul>
+
+<p>This way, the system encourages you to report your real belief rather than guessing.</p>
+
+
+<h2>Control Questions:</h2>
 
 <p>
-    Here how it works:
-</p> 
-<ul> 
-    <li>
-        You will state the probability <i>Y</i> (e.g., 50%) that you believe France will become the European champion.
-    </li> 
-    <li>
-        The computer randomly selects a number <i>X</i> between 0 and 100.
-        <ul> 
-            <li>
-                If <i>Y</i> &ge; <i>X</i>, you will receive additional payout <em>if France actually becomes champion</em>.
-            </li>
-            <li>
-                If <i>Y</i> &lt; <i>X</i>, you will win additional payout with a probability of <i>X</i>%, <em>regardless of whether France wins</em>.
-            </li>
-        </ul> 
-    </li> 
-</ul> 
-<p> 
-    <strong>Why is this mechanism used?</strong> This payout method ensures it is always in your best interest to truthfully report your belief.
-</p> 
-
-<p><strong>Control Questions:</strong></p>
-
-<p>
-    To increase your understanding of the payout mechanism, we now ask you to answer a few control questions.
+    To increase your understanding of this mechanism, we now ask you to answer a couple control questions.
     However, we will only proceed to the next phase of the experiment once you have answered the questions correctly.
     You have <em>3 tries</em>.
 </p>
 
 <p>
-    Assume your best estimate that France wins championship is 30%.
+    Assume your best estimate that France wins championship is <b>30%</b>.
 </p>
 
 {% formfield player.cntr_quest_1 %}
 
-<p>Now, assume additionally that the computer has drawn <i>X</i> equal to 50.</p>
 {% formfield player.cntr_quest_2 %}
-{% formfield player.cntr_quest_3 %}
 
 {% next_button %}
 

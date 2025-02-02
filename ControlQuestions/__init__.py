@@ -27,12 +27,8 @@ class Player(BasePlayer):
                                         label='1. Which probability should you specify to have the highest chance \
                                         of receiving an additional payout?',
                                         widget=widgets.RadioSelect)
-    cntr_quest_2 = models.StringField(choices=[['True', '50%'], ['40%', '40%'], ['30%', '30%']],
-                                         initial='0',
-                                         label='2. What is your probability of winning additional payout?',
-                                         widget=widgets.RadioSelect)
-    cntr_quest_3 = models.StringField(choices=[['Yes', 'Yes'], ['True', 'No']],
-                                        label='3. Would you have had a higher probability of winning additional payout \
+    cntr_quest_2 = models.StringField(choices=[['Yes', 'Yes'], ['True', 'No']],
+                                        label='2. Would you have had a higher probability of winning additional payout \
                                               if you had indicated a probability of 60% instead of 30%?',
                                         widget=widgets.RadioSelect)
     
@@ -59,7 +55,7 @@ class Player(BasePlayer):
 
 class ControlQuestions(Page):
     form_model = 'player'
-    form_fields = ['cntr_quest_1', 'cntr_quest_2', 'cntr_quest_3']
+    form_fields = ['cntr_quest_1', 'cntr_quest_2']
 
 
 class Result(Page):
