@@ -38,7 +38,7 @@ class Player(BasePlayer):
 class Confirmation(Page):
     form_model = 'player'
     form_fields = ['confirm']
-    timeout_seconds = 10
+    timeout_seconds = 30
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
