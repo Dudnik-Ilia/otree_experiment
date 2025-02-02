@@ -17,11 +17,11 @@ class C(BaseConstants):
     NAME_IN_URL = 'Control_Questions'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = NUM_ROUNDS_CONTROL_QUESTIONS
-    CORRECT_ANSWERS = ('30%', '50%', 'No')
+    # CORRECT_ANSWERS = ('30%', 'No')
 
 
 class Player(BasePlayer):
-    attempts = models.IntegerField(initial=1)
+    if_correct = models.BooleanField(initial=False)
     # Input fields
     cntr_quest_1 = models.StringField(choices=[['60%', '60%'], ['True', '30%'], ['20%', '20%']],
                                         label='1. Which probability should you specify to have the highest chance \
@@ -43,14 +43,17 @@ class Player(BasePlayer):
         self.participant.vars['wrong_questions'] = wrong_questions
         return len(correct_questions)
 
-    def check_answers(self) -> bool:
+    def check_answers(self) -> None:
+        if 'control_attempts' not in self.participant.vars:
+            self.participant.vars['control_attempts'] = 1
         control_points = self._calculate_points()
         # Register attempt
         if control_points < NUM_OF_CONTROL_QUESTIONS:
-            self.attempts += 1
+            self.participant.vars['control_attempts'] += 1
         if control_points == NUM_OF_CONTROL_QUESTIONS:
-            return True
-        return False
+            self.if_correct = True
+        else:
+            self.if_correct = False
 
 
 class ControlQuestions(Page):
@@ -59,24 +62,27 @@ class ControlQuestions(Page):
 
 
 class Result(Page):
+    form_model = 'player'
+
     @staticmethod
     def vars_for_template(player: Player):
-        if_correct = player.check_answers()
+        player.check_answers()
         return {
+            'attempt': player.participant.vars['control_attempts'],
             'wrong_questions': str(player.participant.vars['wrong_questions']),
-            'quiz_correct': if_correct,
+            'quiz_correct': player.if_correct,
         }
 
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
-        if player.check_answers():
+        if player.if_correct:
             return upcoming_apps[0] # Proceed
-        elif player.attempts > NUM_ROUNDS_CONTROL_QUESTIONS:
+        elif player.participant.vars['control_attempts'] == NUM_ROUNDS_CONTROL_QUESTIONS:
             # Drop user if attempts > allowed
             player.participant.vars['dropout'] = True
             return 'Dropout'
         else:
-            # Do again (stay here)
+            # Do again (stay here for more round)
             return None
 
 page_sequence = [ControlQuestions, Result]
