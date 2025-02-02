@@ -164,7 +164,6 @@ class Question(Page):
         real_answer = SAMPLES_MAIN_TEST['class'].iloc[question_num-1]
         # If correctly classified
         if (user_answer == "Approve" and real_answer == 1) or (user_answer == "Decline" and real_answer == 0):
-            # Increase payout a bit
             player.participant.payoff += 1
             # Increment correct answers
             correct_answers_round = getattr(player, 'correct_answers_round'+str(player.current_round))

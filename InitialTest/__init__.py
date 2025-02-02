@@ -41,10 +41,6 @@ class Player(BasePlayer):
     still_active = models.BooleanField(blank=True, choices=[[True, 'Yes'], [False, 'No']], initial=False,
                                        label='Please click "Yes" and "Continue" within 60 seconds if you continue to actively participate in the experiment', widget=widgets.RadioSelect)
 
-    @staticmethod
-    def add_payout_correct_quest():
-        return random.randrange(1,5,1)
-
 
 class Intro(Page):
     form_model = 'player'
@@ -124,7 +120,7 @@ class Question(Page):
         user_answer = getattr(player, 'question'+str(question_num))
         real_answer = SAMPLES_INITIAL_TEST['class'].iloc[question_num-1]
         if (user_answer == "Approve" and real_answer == 1) or (user_answer == "Decline" and real_answer == 0):
-            player.participant.payoff += player.add_payout_correct_quest()
+            player.participant.payoff += 1
             player.correct_answers += 1
         # Increase question number
         player.current_question += 1
