@@ -61,10 +61,6 @@ class Player(BasePlayer):
     question19 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
     question20 = models.StringField(choices=[['Approve', 'Approve'], ['Decline', 'Decline']], label='Should we approve this loan request?', widget=widgets.RadioSelect)
 
-    @staticmethod
-    def add_payout_correct_quest():
-        return random.randrange(1,5,1)
-
     def get_signal(self, singal_num: int):
         # Get result in the round
         praticipant_result = getattr(self, f'correct_answers_round{singal_num}')
@@ -92,7 +88,6 @@ class TreatmentIntro(Page):
 
 class TreatmentPassive(Page):
     form_model = 'player'
-    timeout_seconds = 5
     @staticmethod
     def is_displayed(player: Player):
         if player.participant.vars['treatment'] == 0:
@@ -100,7 +95,6 @@ class TreatmentPassive(Page):
 
 class TreatmentActive(Page):
     form_model = 'player'
-    timeout_seconds = 5
     @staticmethod
     def is_displayed(player: Player):
         if player.participant.vars['treatment'] == 1:
@@ -171,7 +165,7 @@ class Question(Page):
         # If correctly classified
         if (user_answer == "Approve" and real_answer == 1) or (user_answer == "Decline" and real_answer == 0):
             # Increase payout a bit
-            player.participant.payoff += player.add_payout_correct_quest()
+            player.participant.payoff += 1
             # Increment correct answers
             correct_answers_round = getattr(player, 'correct_answers_round'+str(player.current_round))
             setattr(player, 'correct_answers_round'+str(player.current_round), correct_answers_round+1)
