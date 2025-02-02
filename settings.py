@@ -31,7 +31,7 @@ mturk_hit_settings=dict(
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.002,
-    'participation_fee': 0.03,
+    'participation_fee': 0.02,
     'mturk_hit_settings': mturk_hit_settings
     }
 
