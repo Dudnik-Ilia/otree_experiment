@@ -135,11 +135,13 @@ class ConfirmActive(Page):
     form_fields = ['still_active']
     timeout_seconds = 60
     @staticmethod
-    def before_next_page(player: Player, timeout_happened):
+    def app_after_this_page(player: Player, upcoming_apps):
         # Drop user if inactive
-        if player.still_active!=True: 
+        if player.still_active!=True:
             player.participant.vars["dropout"]=True
             return 'Dropout'
+        else:
+            return upcoming_apps[0]
 
 
 quiz_pages = [Question for _ in range(NUM_OF_QUESTIONS_INITIAL_TEST)]
