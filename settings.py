@@ -30,15 +30,15 @@ mturk_hit_settings=dict(
 
 
 SESSION_CONFIG_DEFAULTS = {
-    'real_world_currency_per_point': 0.01,
-    'participation_fee': 0.1,
+    'real_world_currency_per_point': 0.002,
+    'participation_fee': 0.03,
     'mturk_hit_settings': mturk_hit_settings
     }
 
 SESSION_CONFIGS =   [
     {
         'name': 'Main',
-        'num_demo_participants': 1,
+        'num_demo_participants': 2,
         'app_sequence': [
             'Welcome', 
             'ControlQuestions',
@@ -51,16 +51,16 @@ SESSION_CONFIGS =   [
     },
     {
         'name': 'InitialTest',
-        'num_demo_participants': 1,
+        'num_demo_participants': 2,
         'app_sequence': [
             'InitialTest', 'Dropout'
         ]
     },
     {
         'name': 'MainTest',
-        'num_demo_participants': 1,
+        'num_demo_participants': 2,
         'app_sequence': [
-            'MainTest', 'Questionnaire', 'Dropout'
+            'MainTest', 'Questionnaire', 'Payout', 'Dropout'
         ]
     }
 ]
