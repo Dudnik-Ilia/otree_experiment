@@ -30,10 +30,12 @@ class Dropout(Page):
     @staticmethod
     def is_displayed(player: Player):
         participant = player.participant
-        if not getattr(participant.vars, "dropout", False):
-            print("Dropout is False! Check that it is awaited")
-        participant.payoff = 0  # Set participation fee to zero
-        return True
+        if "dropout" in participant.vars and participant.vars["dropout"] == True:
+            print("Dropout is True! Check that it is awaited")
+            participant.payoff = 0  # Set participation fee to zero
+            return True # Display the page
+        else:
+            return False # Do not display the page
 
 
 page_sequence = [Dropout]
