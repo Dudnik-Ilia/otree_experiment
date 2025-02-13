@@ -85,14 +85,17 @@ INSTALLED_APPS = ['otree']
 AI_ACCURACY = 0.5
 # Accuracy of the messenger
 PROBA_CORRECT_MESSENGER = 0.66
+# Data features to use
+FEATURES = ['Age (in years)', 'Credit history', 'Loan duration (months)',
+            'Bank account status', 'Credit amount (applicant has requested)', 'class']
 # InitialTest
-NUM_OF_QUESTIONS_INITIAL_TEST = 10
-SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')
+NUM_OF_QUESTIONS_INITIAL_TEST = 1
+SAMPLES_INITIAL_TEST = pd.read_csv('_static/samples/picked_samples.csv')[FEATURES]
 # ControlQuestions
 NUM_OF_CONTROL_QUESTIONS = 2
 NUM_ROUNDS_CONTROL_QUESTIONS = 3
 # MainTest
 NUM_OF_BELIEFS = 3
 NUM_OF_SIGNALS=2
-NUM_OF_QUESTIONS_MAIN_TEST_PER_ROUND = 10
-SAMPLES_MAIN_TEST = pd.read_csv('_static/samples/picked_samples_main.csv')
+NUM_OF_QUESTIONS_MAIN_TEST_PER_ROUND = 1
+SAMPLES_MAIN_TEST = pd.read_csv('_static/samples/picked_samples_main.csv')[FEATURES]
