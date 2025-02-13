@@ -26,7 +26,7 @@ mturk_hit_settings=dict(
     expiration_hours=1 * 24,
     qualification_requirements=qualifications
     # grant_qualification_id='YOUR_QUALIFICATION_ID_HERE', # to prevent retakes
-),
+)
 
 
 SESSION_CONFIG_DEFAULTS = {
