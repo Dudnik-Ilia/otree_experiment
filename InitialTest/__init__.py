@@ -108,7 +108,8 @@ class Question(Page):
             # Make incorrect prediction
             ai_decision = "Decline" if ai_decision == "Approve" else "Approve"
         return {
-            'title': f"Question {question_num}/{NUM_OF_QUESTIONS_INITIAL_TEST}",
+            'current_question': question_num,
+            'total_questions': NUM_OF_QUESTIONS_INITIAL_TEST,
             'sample_dict': SAMPLES_INITIAL_TEST.iloc[question_num-1].to_dict(),
             'ai_decision': ai_decision,
             'real_decision': SAMPLES_INITIAL_TEST['class'].iloc[question_num-1] # For debugging

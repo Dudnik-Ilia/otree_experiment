@@ -1,7 +1,6 @@
 {{ extends 'global/Page.html' }}
 
-{{ block content }}  <!-- Begin content block -->
-<!-- Page Content Starts Here -->
+{{ block content }}
 <style>
     /* Table Styling */
     .sample-table {
@@ -13,54 +12,88 @@
 
     .sample-table th, .sample-table td {
         border: 2px solid #ddd;
-        padding: 12px; /* Increased padding for spacing */
+        padding: 12px;
+        text-align: left;
     }
 
     .sample-table th {
-        background-color: #f2f2f2; /* Light gray background for headers */
-        text-align: left;
+        background-color: #f2f2f2;
         font-size: 20px;
     }
 
-    .sample-table td {
-        text-align: left; /* Left-align text for better readability */
-        font-size: 16px;
-        vertical-align: top; /* Align text to the top for multi-line values */
-    }
-
-    /* Section Header Styling */
     .sample-section-header {
         text-align: left;
         font-weight: bold;
         font-size: 16px;
-        background-color: #e6f7ff; /* Light blue background */
+        background-color: #e6f7ff;
         padding: 10px;
-        border-top: 2px solid #007bff; /* Add a top border for separation */
-        border-bottom: 2px solid #007bff; /* Add a bottom border */
-        color: #007bff; /* Blue text */
+        border-top: 2px solid #007bff;
+        border-bottom: 2px solid #007bff;
+        color: #007bff;
     }
 
     .ai-decision-text {
         font-size: 16px;
-        color: #0056b3; /* Deep blue for emphasis */
-        background-color: #f0f8ff; /* Light blue background for contrast */
-        border-left: 4px solid #0056b3; /* Blue accent line on the left */
         padding: 10px;
         margin-top: 20px;
-        font-family: Arial, sans-serif; /* Modern font */
-        border-radius: 4px; /* Rounded edges for a polished look */
+        font-family: Arial, sans-serif;
+        border-radius: 4px;
+        text-align: center;
     }
 
+    .ai-decision-approve {
+        color: #008000;
+        background-color: #e6ffe6;
+        border-left: 4px solid #008000;
+    }
 
-    /* Table Container */
+    .ai-decision-decline {
+        color: #d60000;
+        background-color: #ffe6e6;
+        border-left: 4px solid #d60000;
+    }
+
     .table-container {
         margin: 30px auto;
     }
+
+    /* Progress Bar Styling */
+    .progress-container {
+        width: 70%;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        margin: 20px auto;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .progress-bar {
+        height: 20px;
+        background-color: #007bff;
+        width: 0%;
+        transition: width 0.3s ease-in-out;
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var progressBar = document.querySelector(".progress-bar");
+        var currentQuestion = parseInt("{{ current_question }}", 10);
+        var totalQuestions = parseInt("{{ total_questions }}", 10);
+        if (!isNaN(currentQuestion) && !isNaN(totalQuestions) && totalQuestions > 0) {
+            var progressPercentage = (currentQuestion / totalQuestions) * 100;
+            progressBar.style.width = progressPercentage + "%";
+        }
+    });
+</script>
+
+<div class="progress-container">
+    <div class="progress-bar"></div>
+</div>
+<p style="text-align:center;">Question {{ current_question }} of {{ total_questions }}</p>
 
 <div class="row">
     <div class="column1">
-        <strong>{{ title }}</strong>  <!-- Dynamic title -->
         <br>
         <div class="table-container">
             <!-- Dynamic table for sample_dict grouped by categories -->
@@ -115,7 +148,11 @@
     <div class="column">
         <div class="wrapper">
             <br>
-            <p class="ai-decision-text">Our AI thinks we need to: <strong>{{ ai_decision }}</strong></p>
+            {% if ai_decision == 'Approve' %}
+                <p class="ai-decision-text ai-decision-approve">✅ Our AI thinks we need to: <strong>{{ ai_decision }}</strong></p>
+            {% else %}
+                <p class="ai-decision-text ai-decision-decline">🚫 Our AI thinks we need to: <strong>{{ ai_decision }}</strong></p>
+            {% endif %}
             <br>
             {% formfields %}
             {% next_button %}
